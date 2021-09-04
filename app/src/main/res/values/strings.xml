@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PayInTime</string>
+    <string name="payintime">PayInTime</string>
+    <string name="splash_description">Gerencie suas contas do mês para evitar surpresas e economizar!</string>
+    <string name="senha">Senha</string>
+    <string name="email">Email</string>
+    <string name="entrar">Entrar</string>
+    <string name="cadastrar_conta">Não possui uma conta?</string>
+</resources>
