@@ -6,4 +6,7 @@
     <string name="email">Email</string>
     <string name="entrar">Entrar</string>
     <string name="cadastrar_conta">Não possui uma conta?</string>
+    <string name="nome">Nome</string>
+    <string name="signup_description">Preencha os campos abaixo para se cadastrar!</string>
+    <string name="cadastrar">Cadastrar</string>
 </resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "803925248550",
+    "project_id": "payintime-6cef8",
+    "storage_bucket": "payintime-6cef8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:803925248550:android:c3dac677054cc309fe74e7",
+        "android_client_info": {
+          "package_name": "com.souzavaltenis.payintime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "803925248550-a6b8d33jm5giesvmknpfdrofao238lna.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8OB2G_i_yuhZ_dyOniw-s9SMKS-Rcx7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "803925248550-a6b8d33jm5giesvmknpfdrofao238lna.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

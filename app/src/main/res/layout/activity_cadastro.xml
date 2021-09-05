@@ -6,13 +6,100 @@
     android:layout_height="match_parent"
     tools:context=".view.CadastroActivity">
 
+    <Button
+        android:id="@+id/btCadastrar"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="42dp"
+        android:onClick="cadastrar"
+        android:text="@string/cadastrar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etSenhaSignup" />
+
+    <EditText
+        android:id="@+id/etSenhaSignup"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="42dp"
+        android:focusable="true"
+        android:hint="@string/senha"
+        android:inputType="textPersonName|textPassword"
+        android:maxLength="30"
+        android:selectAllOnFocus="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEmailSingup" />
+
+    <EditText
+        android:id="@+id/etEmailSingup"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="42dp"
+        android:hint="@string/email"
+        android:inputType="textEmailAddress"
+        android:maxLength="30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etNomeSignup" />
+
+    <EditText
+        android:id="@+id/etNomeSignup"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="42dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="@string/nome"
+        android:inputType="text"
+        android:maxLength="30"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescSingup" />
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvLogoSingup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cadastro"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/sansation_bold"
+        android:text="@string/payintime"
+        android:textColor="@color/primary"
+        android:textSize="48sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDescSingup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="42dp"
+        android:fontFamily="@font/roboto"
+        android:text="@string/signup_description"
+        android:textColor="@color/gray"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLogoSingup" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

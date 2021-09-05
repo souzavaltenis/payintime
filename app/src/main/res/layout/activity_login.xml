@@ -15,7 +15,7 @@
         android:onClick="cadastro"
         android:text="@string/cadastrar_conta"
         android:textColor="@color/gray"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btEntrar" />
@@ -29,14 +29,14 @@
         android:fontFamily="@font/sansation_bold"
         android:text="@string/payintime"
         android:textColor="@color/primary"
-        android:textSize="64sp"
+        android:textSize="48sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivLogoLogin"
         android:layout_width="wrap_content"
-        android:layout_height="180dp"
+        android:layout_height="140dp"
         android:layout_marginStart="42dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
