@@ -10,7 +10,7 @@ import com.souzavaltenis.payintime.repository.interfaces.IUsuarioRepository
 
 class UsuarioRepository: IUsuarioRepository {
 
-    val firestore: FirebaseFirestore = Firebase.firestore
+    private val firestore: FirebaseFirestore = Firebase.firestore
 
     override fun save(usuarioModel: UsuarioModel): Task<Void> {
         return firestore.collection("users").document(usuarioModel.email).set(usuarioModel)

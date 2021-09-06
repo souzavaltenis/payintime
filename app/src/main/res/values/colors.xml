@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primary">#00BFA6</color>
-    <color name="gray">#909090</color>
+    <color name="background">#FFFFFF</color>
+    <color name="text">#909090</color>
+    <color name="divider">#CCCCCC</color>
 
 </resources>

@@ -6,7 +6,14 @@
     <string name="email">Email</string>
     <string name="entrar">Entrar</string>
     <string name="cadastrar_conta">Não possui uma conta?</string>
+    <string name="criar_conta">criar conta</string>
     <string name="nome">Nome</string>
     <string name="signup_description">Preencha os campos abaixo para se cadastrar!</string>
     <string name="cadastrar">Cadastrar</string>
+    <string name="exemplo_mes">Novembro</string>
+    <string name="exemplo_ano">2021</string>
+    <string name="valor_exemplo">R$ 1234,56</string>
+    <string name="salario_restante">Salário restante:</string>
+    <string name="ja_pago">Já pago:</string>
+    <string name="a_pagar">A pagar:</string>
 </resources>

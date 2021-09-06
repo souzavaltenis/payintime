@@ -14,31 +14,45 @@
         android:fontFamily="@font/roboto"
         android:onClick="cadastro"
         android:text="@string/cadastrar_conta"
-        android:textColor="@color/gray"
+        android:textColor="@color/text"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btEntrar" />
 
     <TextView
+        android:id="@+id/tvCriarConta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:onClick="cadastro"
+        android:text="@string/criar_conta"
+        android:textColor="@color/primary"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCadastro" />
+
+    <TextView
         android:id="@+id/tvLogo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/sansation_bold"
         android:text="@string/payintime"
         android:textColor="@color/primary"
         android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/ivLogoLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="140dp"
-        android:layout_marginStart="42dp"
         android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLogo2"
         app:srcCompat="@drawable/figure_finance_graphs" />

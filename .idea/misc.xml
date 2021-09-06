@@ -3,13 +3,25 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/effect_button.xml" value="0.2838541666666667" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.3828125" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/ic_minus.xml" value="0.3828125" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/ic_plus.xml" value="0.3828125" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/style_button.xml" value="0.3828125" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/style_button_minus.xml" value="0.3828125" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/style_button_plus.xml" value="0.3828125" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/style_button_profile.xml" value="0.3828125" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/style_edit.xml" value="0.3828125" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout-v23/activity_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_cadastro.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_home.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_login.xml" value="0.33" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_home.xml" value="0.33" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_login.xml" value="0.5" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_splash.xml" value="0.33" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/drawer_header.xml" value="0.9" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/model_toolbar.xml" value="0.5" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/toolbar_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/menu/nav_items.xml" value="0.33" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22135416666666666" />
       </map>
     </option>

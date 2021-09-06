@@ -37,7 +37,7 @@ class CadastroActivity : AppCompatActivity() {
 
         authController.signup(email, password).addOnCompleteListener { task: Task<AuthResult> ->
             if(task.isSuccessful){
-                usuarioController.save(UsuarioModel(name, email)).addOnCompleteListener { task: Task<Void> ->
+                usuarioController.save(UsuarioModel(name, email)).addOnCompleteListener {
                     Toast.makeText(this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show()
                     onBackPressed()
                 }
