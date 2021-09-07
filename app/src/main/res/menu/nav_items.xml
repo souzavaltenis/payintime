@@ -3,14 +3,14 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/teste1"
-            android:title="Teste1" />
+            android:id="@+id/opSalario"
+            android:title="@string/salario" />
         <item
-            android:id="@+id/teste2"
-            android:title="Teste2" />
+            android:id="@+id/opContasFixas"
+            android:title="@string/contas_fixas" />
         <item
-            android:id="@+id/teste3"
-            android:title="Teste3" />
+            android:id="@+id/opEconomia"
+            android:title="@string/economia" />
     </group>
 
 </menu>

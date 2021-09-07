@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PayInTime">
         <activity
+            android:name=".view.SalarioActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".view.CadastroActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

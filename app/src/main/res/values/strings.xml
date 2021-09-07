@@ -16,4 +16,10 @@
     <string name="salario_restante">Salário restante:</string>
     <string name="ja_pago">Já pago:</string>
     <string name="a_pagar">A pagar:</string>
+    <string name="salario">Salário</string>
+    <string name="contas_fixas">Contas Fixas</string>
+    <string name="economia">Economia</string>
+    <string name="salario_description">Para realizar cálculos sobre suas contas, Informe o seu salário líquido mensal</string>
+    <string name="novo_salario">Novo salário</string>
+    <string name="atualizar_salario">Atualizar salário</string>
 </resources>

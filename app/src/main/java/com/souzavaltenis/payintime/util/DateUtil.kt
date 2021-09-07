@@ -30,11 +30,9 @@ class DateUtil {
         }
 
         fun getKeyFromDate(date: LocalDate): String{
-            return extractMonthName(date, TextStyle.SHORT).replaceFirst(".","/") + date.year
+            return extractMonthName(date, TextStyle.SHORT) + date.year
         }
 
     }
-
-
 
 }

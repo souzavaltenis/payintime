@@ -19,4 +19,9 @@ class UsuarioRepository: IUsuarioRepository {
     override fun findByEmail(email: String): Task<DocumentSnapshot> {
         return firestore.collection("users").document(email).get()
     }
+
+    override fun updateFieldSalario(email: String, salario: Double): Task<Void> {
+        return firestore.collection("users").document(email)
+            .update(mapOf("salario" to salario))
+    }
 }

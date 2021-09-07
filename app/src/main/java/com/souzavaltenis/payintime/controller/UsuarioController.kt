@@ -16,4 +16,8 @@ class UsuarioController {
     fun findByEmail(email: String): Task<DocumentSnapshot> {
         return usuarioRepository.findByEmail(email)
     }
+
+    fun updateFieldSalario(email: String, salario: Double): Task<Void> {
+        return usuarioRepository.updateFieldSalario(email, salario)
+    }
 }
