@@ -22,4 +22,10 @@
     <string name="salario_description">Para realizar cálculos sobre suas contas, Informe o seu salário líquido mensal</string>
     <string name="novo_salario">Novo salário</string>
     <string name="atualizar_salario">Atualizar salário</string>
+    <string name="descricao">Descrição</string>
+    <string name="valor">Valor</string>
+    <string name="dia_do_vencimento">Dia do Vencimento</string>
+    <string name="description_criar_conta">Cadastro de uma nova conta</string>
+    <string name="setembro_2021">Setembro 2021</string>
+    <string name="cadastrar_uma_conta">Cadastrar Conta</string>
 </resources>

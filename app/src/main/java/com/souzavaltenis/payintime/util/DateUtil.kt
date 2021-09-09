@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.format.TextStyle
 import java.util.*
 
@@ -29,8 +30,24 @@ class DateUtil {
             return isBeforeOneYear ||  isAfterOneYear
         }
 
-        fun getKeyFromDate(date: LocalDate): String{
-            return extractMonthName(date, TextStyle.SHORT) + date.year
+        fun getKeyFromDate(date: LocalDate = LocalDate.now()): String{
+            return extractMonthName(date, TextStyle.SHORT).replace(".", "") + date.year
+        }
+
+        fun getDateFromDayInActualMonth(day: Int): LocalDate {
+            return LocalDate.of(
+                LocalDate.now().year,
+                LocalDate.now().month,
+                day
+            )
+        }
+
+        fun convertLocalDateToDate(dateToConvert: LocalDate): Date {
+            return Date.from(
+                    dateToConvert.atStartOfDay()
+                    .atZone(ZoneId.of("America/Sao_Paulo"))
+                    .toInstant()
+            )
         }
 
     }

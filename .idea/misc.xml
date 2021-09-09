@@ -14,14 +14,19 @@
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/style_button_minus.xml" value="0.3828125" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/style_button_plus.xml" value="0.3828125" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/style_button_profile.xml" value="0.3828125" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/style_button_submenu.xml" value="0.3828125" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/drawable/style_edit.xml" value="0.3828125" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout-v23/activity_home.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_cadastro.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_contas_fixas.xml" value="0.48382923673997413" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_criar_conta.xml" value="0.33" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_login.xml" value="0.5" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_salario.xml" value="0.7120743034055728" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_salario.xml" value="0.33" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/activity_splash.xml" value="0.33" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/card_conta_fixa.xml" value="0.75" />
+        <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/component_conta.xml" value="0.67" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/drawer_header.xml" value="0.9" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/model_toolbar.xml" value="0.5" />
         <entry key="..\:/Users/Seeker/AndroidStudioProjects/PayInTime/app/src/main/res/layout/toolbar_main.xml" value="0.5" />

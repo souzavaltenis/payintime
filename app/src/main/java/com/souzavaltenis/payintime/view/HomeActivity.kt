@@ -20,9 +20,12 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.souzavaltenis.payintime.R
 import com.souzavaltenis.payintime.controller.HomeController
+import com.souzavaltenis.payintime.model.enums.StatusConta
+import com.souzavaltenis.payintime.singleton.ContaSingleton
 import com.souzavaltenis.payintime.singleton.UsuarioSingleton
 import com.souzavaltenis.payintime.util.DateUtil
 import java.time.LocalDate
+import java.util.function.Consumer
 
 @RequiresApi(Build.VERSION_CODES.O)
 class HomeActivity : AppCompatActivity() {
@@ -32,46 +35,58 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var tvMes: TextView
     private lateinit var tvAno: TextView
 
-//    private lateinit var contas: List<ContaModel>
-//    private lateinit var contasFixas: List<ContaModel>
+    private lateinit var tvInfoConta: TextView
 
-    private val firestore: FirebaseFirestore = Firebase.firestore
-
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
         homeController = HomeController()
-
-        homeController.initUsuario().addOnCompleteListener {
-            loadMenu()
-            showAndUpdateDateContent()
-            setOnCliksPlusAndMinus()
-        }
+        homeController.initUsuario{initSetup()}
 
         date = LocalDate.now()
         tvMes = findViewById(R.id.tvMes)
         tvAno = findViewById(R.id.tvAno)
+
+        tvInfoConta = findViewById(R.id.tvInfoConta)
+
+        val tvTipoConta: TextView = findViewById(R.id.tvTipoConta)
+        tvTipoConta.text = "Contas"
     }
+
+    fun initSetup(){
+        loadMenu()
+        showAndUpdateDateContent()
+        setOnCliksPlusAndMinus()
+        addClickCreateConta()
+    }
+
+    fun addClickCreateConta(){
+        val ivAddConta: ImageView = findViewById(R.id.ivAddConta)
+        ivAddConta.setOnClickListener{
+            startActivityForResult(
+                Intent(this, CriarContaActivity::class.java),
+                CriarContaActivity.RESULT_OK_CONTA_FIXA
+            )
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode == CriarContaActivity.RESULT_OK_CONTA_NORMAL){
+            Toast.makeText(this,"Conta Adicionada com Sucesso!", Toast.LENGTH_SHORT).show()
+
+        }
+    }
+
 
     //função chamada quando atualiza
     fun updateContent() {
 
-        val keyDate: String = DateUtil.getKeyFromDate(date)
-        Log.d("getKeyFromDate", "Key: $keyDate")
+        val keyDate: String = DateUtil.getKeyFromDate()
 
-//        val items = HashMap<String, Any>()
-//        items["all"] = listOf(ContaModel(),ContaModel(),ContaModel(),ContaModel(),ContaModel())
-//
-//        firestore.document("/users/${usuarioModel.email}/contas/$keyDate").set(items)
-//
-//        firestore.document("/users/${usuarioModel.email}/contas/$keyDate").get().addOnCompleteListener { task ->
-//            val items: ContasModel = task.result?.toObject(ContasModel::class.java)!!
-//
-//            Log.d("getKeyFromDate", "items: $items")
-//        }
-
-        //Alguma logica...
+        Log.d("teste", "|||| Info For $keyDate -> ${ContaSingleton.contasNormais[keyDate]}")
     }
 
     fun showDate() {
@@ -123,7 +138,7 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(Intent(this, SalarioActivity::class.java))
             }
             R.id.opContasFixas -> {
-                Toast.makeText(this, "opContasFixas", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, ContasFixasActivity::class.java))
             }
             R.id.opEconomia -> {
                 Toast.makeText(this, "opEconomia", Toast.LENGTH_SHORT).show()
@@ -166,4 +181,16 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
+//    fun atualizarInformacoesContas() {
+//
+//        val quantidadeContasPagas: Int = ContaSingleton.contasNormais
+//            .stream()
+//            .filter{ conta -> conta.status == StatusConta.PAGA }
+//            .count()
+//            .toInt()
+//
+//        //tvInfoConta
+//
+//        Log.d("teste", "quantidadeContasPagas $quantidadeContasPagas")
+//    }
 }
