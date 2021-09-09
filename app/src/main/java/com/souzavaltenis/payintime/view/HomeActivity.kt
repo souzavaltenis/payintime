@@ -31,7 +31,6 @@ import java.util.function.Consumer
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var homeController: HomeController
-    private lateinit var date: LocalDate
     private lateinit var tvMes: TextView
     private lateinit var tvAno: TextView
 
@@ -45,7 +44,6 @@ class HomeActivity : AppCompatActivity() {
         homeController = HomeController()
         homeController.initUsuario{initSetup()}
 
-        date = LocalDate.now()
         tvMes = findViewById(R.id.tvMes)
         tvAno = findViewById(R.id.tvAno)
 
@@ -90,8 +88,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun showDate() {
-        tvMes.text = DateUtil.getNameMonthUpper(date)
-        tvAno.text = date.year.toString()
+        tvMes.text = DateUtil.getNameMonthUpper(UsuarioSingleton.dataSelecionada)
+        tvAno.text = UsuarioSingleton.dataSelecionada.year.toString()
     }
 
     fun showAndUpdateDateContent() {
@@ -106,10 +104,10 @@ class HomeActivity : AppCompatActivity() {
 
         btMais.setOnClickListener {
 
-            val newDatePlusOneMonth: LocalDate = date.plusMonths(1)
+            val newDatePlusOneMonth: LocalDate = UsuarioSingleton.dataSelecionada.plusMonths(1)
 
             if(!DateUtil.dateIsGreaterOrLessThanOneYear(newDatePlusOneMonth)){
-                date = newDatePlusOneMonth
+                UsuarioSingleton.dataSelecionada = newDatePlusOneMonth
                 showAndUpdateDateContent()
             }else{
                 Toast.makeText(this, "O limite máximo é de um ano.", Toast.LENGTH_SHORT).show()
@@ -119,10 +117,10 @@ class HomeActivity : AppCompatActivity() {
 
         btMenos.setOnClickListener {
 
-            val newDateMinusOneMonth: LocalDate = date.minusMonths(1)
+            val newDateMinusOneMonth: LocalDate = UsuarioSingleton.dataSelecionada.minusMonths(1)
 
             if(!DateUtil.dateIsGreaterOrLessThanOneYear(newDateMinusOneMonth)){
-                date = newDateMinusOneMonth
+                UsuarioSingleton.dataSelecionada = newDateMinusOneMonth
                 showAndUpdateDateContent()
             }else{
                 Toast.makeText(this, "O limite máximo é de um ano.", Toast.LENGTH_SHORT).show()

@@ -32,7 +32,7 @@
         android:focusable="true"
         android:hint="@string/novo_salario"
         android:inputType="textPersonName|numberDecimal"
-        android:maxLength="30"
+        android:maxLength="15"
         android:selectAllOnFocus="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

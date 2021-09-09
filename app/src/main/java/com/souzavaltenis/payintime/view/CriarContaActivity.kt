@@ -37,6 +37,7 @@ class CriarContaActivity : AppCompatActivity() {
     private lateinit var etValorConta: EditText
     private lateinit var etDiaVencimentoConta: EditText
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_criar_conta)
@@ -45,11 +46,26 @@ class CriarContaActivity : AppCompatActivity() {
         btBack.setOnClickListener{onBackPressed()}
 
         isContaFixa = intent.getBooleanExtra("isContaFixa", false)
+
+        val tvTitleCriarConta: TextView = findViewById(R.id.tvTitleCriarConta)
+
+        if(!isContaFixa){
+            val date: LocalDate = UsuarioSingleton.dataSelecionada
+            tvTitleCriarConta.text = "${DateUtil.getNameMonthUpper(date)}  ${date.year}"
+        }else{
+            tvTitleCriarConta.text = "Conta Fixa"
+
+            val tvDescCriarConta: TextView = findViewById(R.id.tvDescCriarConta)
+            tvDescCriarConta.text = tvDescCriarConta.text.toString().plus(" fixa")
+
+            val btCadastrarConta: Button = findViewById(R.id.btCadastrarConta)
+            btCadastrarConta.text = btCadastrarConta.text.toString().plus(" Fixa")
+        }
+
         val emailUsuario: String = UsuarioSingleton.usuario.email
 
         contaController = ContaController(emailUsuario)
         contaFixaController = ContaFixaController(emailUsuario)
-
 
         etDescConta = findViewById(R.id.etDescConta)
         etValorConta = findViewById(R.id.etValorConta)
@@ -100,9 +116,15 @@ class CriarContaActivity : AppCompatActivity() {
 
             contaController.save(keyDate, conta) {
 
-                val contasNormais: ArrayList<ContaModel> = ContaSingleton.contasNormais[keyDate]!!
-                contasNormais.add(conta)
-                val indexAdded: Int = contasNormais.indexOf(conta)
+                val contasNormais: HashMap<String, ArrayList<ContaModel>> = ContaSingleton.contasNormais
+
+                if(!contasNormais.containsKey(keyDate)){
+                    contasNormais[keyDate] = arrayListOf(conta)
+                }else{
+                    contasNormais[keyDate]?.add(conta)
+                }
+
+                val indexAdded: Int = contasNormais[keyDate]?.indexOf(conta)!!
                 setResultAndFinish(RESULT_OK_CONTA_NORMAL, indexAdded)
 
             }
