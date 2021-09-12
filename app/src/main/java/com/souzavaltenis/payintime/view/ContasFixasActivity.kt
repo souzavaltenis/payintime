@@ -3,7 +3,6 @@ package com.souzavaltenis.payintime.view
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -14,14 +13,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.souzavaltenis.payintime.R
 import com.souzavaltenis.payintime.singleton.ContaSingleton
-import com.souzavaltenis.payintime.util.ContasFixaAdapterRV
+import com.souzavaltenis.payintime.util.adapaters.ContasFixaAdapterRV
 import com.souzavaltenis.payintime.util.GeralUtil
 
 class ContasFixasActivity : AppCompatActivity() {
 
+    companion object {
+        const val RESULT_OK_CONTAS_FIXAS = 4
+    }
+
     private lateinit var rvContasFixas: RecyclerView
     private lateinit var contasFixasAdapterRV: ContasFixaAdapterRV
-    private lateinit var tvInfoConta: TextView
+    private lateinit var tvInfoContaFixa: TextView
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,15 +32,15 @@ class ContasFixasActivity : AppCompatActivity() {
         setContentView(R.layout.activity_contas_fixas)
 
         val btBack: Button = findViewById(R.id.btBack)
-        btBack.setOnClickListener{onBackPressed()}
+        btBack.setOnClickListener{
+            setResult(RESULT_OK_CONTAS_FIXAS)
+            finish()
+        }
 
-        val ivAddConta: ImageView = findViewById(R.id.ivAddConta)
-        ivAddConta.setOnClickListener{criarContaFixa()}
+        val ivAddContaFixa: ImageView = findViewById(R.id.ivAddContaFixa)
+        ivAddContaFixa.setOnClickListener{criarContaFixa()}
 
-        val tvTipoConta: TextView = findViewById(R.id.tvTipoConta)
-        tvTipoConta.text = "Contas Fixas"
-
-        tvInfoConta = findViewById(R.id.tvInfoConta)
+        tvInfoContaFixa = findViewById(R.id.tvInfoContaFixa)
 
         rvContasFixas = findViewById(R.id.rvContasFixas)
         rvContasFixas.layoutManager = LinearLayoutManager(this)
@@ -45,7 +48,6 @@ class ContasFixasActivity : AppCompatActivity() {
         rvContasFixas.setHasFixedSize(true)
 
         contasFixasAdapterRV = ContasFixaAdapterRV(ContaSingleton.contasFixas)
-
         rvContasFixas.adapter = contasFixasAdapterRV
 
         atualizarInformacoesContasFixas()
@@ -62,7 +64,7 @@ class ContasFixasActivity : AppCompatActivity() {
         if(resultCode == CriarContaActivity.RESULT_OK_CONTA_FIXA){
             val indexAdded: Int = data?.getIntExtra("indexAdded", -1)!!
             Toast.makeText(this,"Conta Fixa Adicionada com Sucesso!", Toast.LENGTH_SHORT).show()
-            contasFixasAdapterRV.notifyItemInserted(indexAdded)
+            //contasFixasAdapterRV.notifyItemInserted(indexAdded)
             atualizarInformacoesContasFixas()
         }
     }
@@ -70,15 +72,11 @@ class ContasFixasActivity : AppCompatActivity() {
     fun atualizarInformacoesContasFixas() {
 
         val totalContasFixas: Int = ContaSingleton.contasFixas.size
-        val somaValorContasFixas: Double = ContaSingleton.contasFixas
-            .stream()
-            .mapToDouble { contaFixa -> contaFixa.valor }
-            .sum()
-
+        val somaValorContasFixas: Double = ContaSingleton.contasFixas.sumOf{c -> c.valor}
         val textoInformacoes = "Total: $totalContasFixas (${
             GeralUtil.formatarValor(somaValorContasFixas)
         })"
 
-        tvInfoConta.text = textoInformacoes
+        tvInfoContaFixa.text = textoInformacoes
     }
 }

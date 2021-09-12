@@ -2,33 +2,45 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="300dp"
-    android:paddingBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:clipToPadding="false"
-    android:layout_height="wrap_content">
+    android:padding="20dp"
+    android:paddingBottom="20dp">
 
     <Button
         android:id="@+id/btFirstCharUser"
         style="@style/ButtonProfileStyle"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:text="V"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvNomeHeader"
-        android:layout_width="150dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="20dp"
         android:fontFamily="@font/roboto"
         android:text="Valtenis"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/btFirstCharUser"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvEmailHeader"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="4dp"
+        android:breakStrategy="simple"
+        android:fontFamily="sans-serif-condensed"
+        android:inputType="textMultiLine"
+        android:text="mariadocarmonotebook@gmail.com"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/btFirstCharUser"
+        app:layout_constraintTop_toBottomOf="@+id/tvNomeHeader" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

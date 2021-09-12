@@ -3,6 +3,8 @@ package com.souzavaltenis.payintime.util
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
+import com.souzavaltenis.payintime.singleton.ContaSingleton
+import com.souzavaltenis.payintime.singleton.UsuarioSingleton
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.TextStyle
@@ -34,7 +36,7 @@ class DateUtil {
             return extractMonthName(date, TextStyle.SHORT).replace(".", "") + date.year
         }
 
-        fun getDateFromDayInActualMonth(day: Int): LocalDate {
+        fun getLocalDateFromDayInActualMonth(day: Int): LocalDate {
             return LocalDate.of(
                 LocalDate.now().year,
                 LocalDate.now().month,
@@ -42,11 +44,27 @@ class DateUtil {
             )
         }
 
+        fun getLocalDateFromDayInMonthSpecific(day: Int, date: LocalDate): LocalDate {
+            return LocalDate.of(date.year, date.month, day)
+        }
+
         fun convertLocalDateToDate(dateToConvert: LocalDate): Date {
             return Date.from(
                     dateToConvert.atStartOfDay()
                     .atZone(ZoneId.of("America/Sao_Paulo"))
                     .toInstant()
+            )
+        }
+
+        fun getDateFromDayInActualMonth(day: Int): Date{
+            return convertLocalDateToDate(
+                getLocalDateFromDayInActualMonth(day)
+            )
+        }
+
+        fun getDateFromDayInMonthSpecific(day: Int, date: LocalDate): Date {
+            return convertLocalDateToDate(
+                getLocalDateFromDayInMonthSpecific(day, date)
             )
         }
 

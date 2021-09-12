@@ -40,9 +40,6 @@ class ContaRepository(val emailUsuario: String): IContaRepository {
             .collection("contas")
             .document(keyDate)
             .get()
-            .addOnSuccessListener { doc ->
-                doc.exists()
-            }
     }
 
 }

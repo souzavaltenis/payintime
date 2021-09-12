@@ -15,6 +15,10 @@ import com.souzavaltenis.payintime.util.GeralUtil
 
 class SalarioActivity : AppCompatActivity() {
 
+    companion object {
+        const val RESULT_OK_SALARIO = 3
+    }
+
     private lateinit var etSalarioUpdate: EditText
     private lateinit var salarioController: SalarioController
 
@@ -35,8 +39,9 @@ class SalarioActivity : AppCompatActivity() {
     fun atualizarSalario(view: View){
         val novoSalario: Double = EditTextMask.unMaskBRL(etSalarioUpdate.text.toString()).toDouble()
         salarioController.atualizarSalario(novoSalario).addOnCompleteListener {
-            Toast.makeText(this, "Salário atualizado com sucesso!", Toast.LENGTH_SHORT).show()
-            onBackPressed()
+
+            setResult(RESULT_OK_SALARIO)
+            finish()
         }
     }
 

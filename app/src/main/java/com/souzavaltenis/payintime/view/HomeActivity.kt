@@ -2,39 +2,47 @@ package com.souzavaltenis.payintime.view
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
-import androidx.annotation.RequiresApi
+import android.view.View
+import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.navigation.NavigationView
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.android.material.tabs.TabLayout
 import com.souzavaltenis.payintime.R
 import com.souzavaltenis.payintime.controller.HomeController
+import com.souzavaltenis.payintime.model.ContaModel
 import com.souzavaltenis.payintime.model.enums.StatusConta
 import com.souzavaltenis.payintime.singleton.ContaSingleton
 import com.souzavaltenis.payintime.singleton.UsuarioSingleton
+import com.souzavaltenis.payintime.util.interfaces.CallbackFragment
 import com.souzavaltenis.payintime.util.DateUtil
+import com.souzavaltenis.payintime.util.adapaters.TabPageAdapter
+import com.souzavaltenis.payintime.util.interfaces.CallbackMenuConta
 import java.time.LocalDate
-import java.util.function.Consumer
 
-@RequiresApi(Build.VERSION_CODES.O)
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var homeController: HomeController
     private lateinit var tvMes: TextView
     private lateinit var tvAno: TextView
 
-    private lateinit var tvInfoConta: TextView
+    private lateinit var btMenos: Button
+    private lateinit var btMais: Button
+
+    private lateinit var tvInfoContasPendentes: TextView
+    private lateinit var tvInfoContasPagas: TextView
+    private lateinit var tvInfoContasVencidas: TextView
+
+    private lateinit var ivAddConta: ImageView
+    private lateinit var tabLayout: TabLayout
+
+    //Remover daqui
+    private var callbacksFragmentsMap: HashMap<Int, CallbackFragment> = hashMapOf()
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,26 +50,71 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
 
         homeController = HomeController()
-        homeController.initUsuario{initSetup()}
 
         tvMes = findViewById(R.id.tvMes)
         tvAno = findViewById(R.id.tvAno)
 
-        tvInfoConta = findViewById(R.id.tvInfoConta)
+        btMenos = findViewById(R.id.btMenos)
+        btMais = findViewById(R.id.btMais)
 
-        val tvTipoConta: TextView = findViewById(R.id.tvTipoConta)
-        tvTipoConta.text = "Contas"
+        tvInfoContasPendentes = findViewById(R.id.tvInfoContasPendentes)
+        tvInfoContasPagas = findViewById(R.id.tvInfoContasPagas)
+        tvInfoContasVencidas = findViewById(R.id.tvInfoContasVencidas)
+
+        ivAddConta = findViewById(R.id.ivAddConta)
+        tabLayout = findViewById(R.id.tabLayout)
+
+        enableViews(false)
+        homeController.initUsuario{
+            initSetup()
+            enableViews(true)
+        }
     }
 
     fun initSetup(){
+        initTabBar()
         loadMenu()
-        showAndUpdateDateContent()
+        updateContent()
         setOnCliksPlusAndMinus()
         addClickCreateConta()
     }
 
+    fun updateContaNormal(): CallbackMenuConta {
+        return object : CallbackMenuConta {
+            override fun notifyAction(button: Button, position: Int) {
+                showPopup(button, position)
+            }
+        }
+    }
+
+    fun initTabBar(){
+
+        val viewPager: ViewPager2 = findViewById(R.id.viewPager)
+        val tabLayout: TabLayout = findViewById(R.id.tabLayout)
+
+        val adapter = TabPageAdapter(this, tabLayout.tabCount, callbacksFragmentsMap, updateContaNormal())
+
+        viewPager.adapter = adapter
+
+        viewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback(){
+            override fun onPageSelected(position: Int) {
+                tabLayout.selectTab(tabLayout.getTabAt(position))
+            }
+        })
+
+        tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+
+            override fun onTabSelected(tab: TabLayout.Tab){
+                viewPager.currentItem = tab.position
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        })
+
+    }
+
     fun addClickCreateConta(){
-        val ivAddConta: ImageView = findViewById(R.id.ivAddConta)
         ivAddConta.setOnClickListener{
             startActivityForResult(
                 Intent(this, CriarContaActivity::class.java),
@@ -72,29 +125,109 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == CriarContaActivity.RESULT_OK_CONTA_NORMAL){
-            Toast.makeText(this,"Conta Adicionada com Sucesso!", Toast.LENGTH_SHORT).show()
 
+        when(resultCode){
+            CriarContaActivity.RESULT_OK_CONTA_NORMAL -> {
+                Toast.makeText(this,"Conta Adicionada com Sucesso!", Toast.LENGTH_SHORT).show()
+            }
+            SalarioActivity.RESULT_OK_SALARIO -> {
+                Toast.makeText(this, "Salário atualizado com sucesso!", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        changeDate()
+    }
+
+    fun showPopup(view: View, position: Int) {
+        val popup = PopupMenu(this, view)
+        popup.inflate(R.menu.submenu_items)
+
+        popup.setOnMenuItemClickListener { item: MenuItem? ->
+
+            when (item!!.itemId) {
+                R.id.header1 -> {
+                    Toast.makeText(this, "${item.title} posi: $position", Toast.LENGTH_SHORT).show()
+                }
+                R.id.header2 -> {
+                    Toast.makeText(this, "${item.title} posi: $position", Toast.LENGTH_SHORT).show()
+                }
+                R.id.header3 -> {
+                    Toast.makeText(this, "${item.title} posi: $position", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            true
+        }
+
+        popup.show()
+    }
+
+    fun updateContent() {
+
+        val dataSelecionada: LocalDate = UsuarioSingleton.dataSelecionada
+
+        tvMes.text = DateUtil.getNameMonthUpper(dataSelecionada)
+        tvAno.text = dataSelecionada.year.toString()
+
+        if(!ContaSingleton.contasNormais.containsKey(UsuarioSingleton.keyDate())){
+            enableViews(false)
+            val btMenos: Button = findViewById(R.id.btMenos)
+            btMenos.isEnabled = false
+            homeController.loadContasNormais{
+                changeDate()
+                enableViews(true)
+            }
+        }else{
+            changeDate()
+        }
+
+    }
+
+    fun enableViews(value: Boolean){
+        tabLayout.isEnabled = value
+        btMenos.isEnabled = value
+        btMais.isEnabled = value
+        ivAddConta.isEnabled = value
+    }
+
+    fun updateContentFragments(position: Int = -1){
+        Log.d("fragment", "callbacksFragmentsMap KEYS: ${callbacksFragmentsMap.keys}")
+        //Notifica um fragmento específico
+        if(position != -1){
+            callbacksFragmentsMap[position]?.notifyUpdate()
+        }else{ //Notifica todos fragmentos
+            callbacksFragmentsMap.forEach{ c -> c.value.notifyUpdate() }
         }
     }
 
+    fun changeDate() {
 
-    //função chamada quando atualiza
-    fun updateContent() {
+        val keyDate: String = UsuarioSingleton.keyDate()
 
-        val keyDate: String = DateUtil.getKeyFromDate()
+        homeController.setStatusContasFixas()
+        updateContentFragments()
 
-        Log.d("teste", "|||| Info For $keyDate -> ${ContaSingleton.contasNormais[keyDate]}")
-    }
+        val contasNormais: ArrayList<ContaModel> = ContaSingleton.contasNormais[keyDate]!!
 
-    fun showDate() {
-        tvMes.text = DateUtil.getNameMonthUpper(UsuarioSingleton.dataSelecionada)
-        tvAno.text = UsuarioSingleton.dataSelecionada.year.toString()
-    }
+        val (contasNormaisPagas, contasNormaisNaoPagas) = contasNormais
+            .partition { it.status == StatusConta.PAGA }
 
-    fun showAndUpdateDateContent() {
-        showDate()
-        updateContent()
+        val (contasFixasPagas, contasFixasNaoPagas) = ContaSingleton.contasFixas
+            .partition { it.pagamentos[keyDate] == StatusConta.PAGA }
+
+        val (contasNormaisPendentes, contasNormaisVencidas) = contasNormaisNaoPagas
+            .partition { it.status == StatusConta.PENDENTE }
+
+        val (contasFixasPendentes, contasFixasVencidas) = contasFixasNaoPagas
+            .partition { it.pagamentos[keyDate] == StatusConta.PENDENTE }
+
+        val quantidadeContasPendentes: Int = contasNormaisPendentes.size + contasFixasPendentes.size
+        val quantidadeContasPagas: Int = contasNormaisPagas.size + contasFixasPagas.size
+        val quantidadeContasVencidas: Int = contasNormaisVencidas.size + contasFixasVencidas.size
+
+        tvInfoContasPendentes.text = quantidadeContasPendentes.toString()
+        tvInfoContasPagas.text = quantidadeContasPagas.toString()
+        tvInfoContasVencidas.text = quantidadeContasVencidas.toString()
     }
 
     fun setOnCliksPlusAndMinus() {
@@ -108,7 +241,7 @@ class HomeActivity : AppCompatActivity() {
 
             if(!DateUtil.dateIsGreaterOrLessThanOneYear(newDatePlusOneMonth)){
                 UsuarioSingleton.dataSelecionada = newDatePlusOneMonth
-                showAndUpdateDateContent()
+                updateContent()
             }else{
                 Toast.makeText(this, "O limite máximo é de um ano.", Toast.LENGTH_SHORT).show()
             }
@@ -121,7 +254,7 @@ class HomeActivity : AppCompatActivity() {
 
             if(!DateUtil.dateIsGreaterOrLessThanOneYear(newDateMinusOneMonth)){
                 UsuarioSingleton.dataSelecionada = newDateMinusOneMonth
-                showAndUpdateDateContent()
+                updateContent()
             }else{
                 Toast.makeText(this, "O limite máximo é de um ano.", Toast.LENGTH_SHORT).show()
             }
@@ -133,13 +266,12 @@ class HomeActivity : AppCompatActivity() {
 
         when (menuItem.itemId) {
             R.id.opSalario -> {
-                startActivity(Intent(this, SalarioActivity::class.java))
+                startActivityForResult(Intent(this, SalarioActivity::class.java),
+                    SalarioActivity.RESULT_OK_SALARIO)
             }
             R.id.opContasFixas -> {
-                startActivity(Intent(this, ContasFixasActivity::class.java))
-            }
-            R.id.opEconomia -> {
-                Toast.makeText(this, "opEconomia", Toast.LENGTH_SHORT).show()
+                startActivityForResult(Intent(this, ContasFixasActivity::class.java),
+                    ContasFixasActivity.RESULT_OK_CONTAS_FIXAS)
             }
         }
 
@@ -164,12 +296,14 @@ class HomeActivity : AppCompatActivity() {
 
         val btFirstCharUser: Button = findViewById(R.id.btFirstCharUser)
         val tvNomeHeader: TextView = findViewById(R.id.tvNomeHeader)
+        val tvEmailHeader: TextView = findViewById(R.id.tvEmailHeader)
 
         val nameSplited: List<String> = UsuarioSingleton.usuario.nome.split(" ")
         val firstName: String = if(nameSplited.isEmpty()) UsuarioSingleton.usuario.nome else nameSplited[0]
 
         btFirstCharUser.text = firstName[0] + ""
         tvNomeHeader.text = firstName
+        tvEmailHeader.text = UsuarioSingleton.usuario.email
 
         val btMenuHamburger: Button = findViewById(R.id.btMenuHamburger)
 
@@ -178,17 +312,12 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    fun deslogar(view: View){
+        homeController.logoutUser()
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+        finish()
+    }
 
-//    fun atualizarInformacoesContas() {
-//
-//        val quantidadeContasPagas: Int = ContaSingleton.contasNormais
-//            .stream()
-//            .filter{ conta -> conta.status == StatusConta.PAGA }
-//            .count()
-//            .toInt()
-//
-//        //tvInfoConta
-//
-//        Log.d("teste", "quantidadeContasPagas $quantidadeContasPagas")
-//    }
 }

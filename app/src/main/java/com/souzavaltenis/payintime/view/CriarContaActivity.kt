@@ -85,11 +85,8 @@ class CriarContaActivity : AppCompatActivity() {
         //Create Conta Fixa
         if(isContaFixa){
 
-            val pagamentos = HashMap<String, StatusConta>()
-            val keyDate = DateUtil.getKeyFromDate(LocalDate.now())
-            pagamentos[keyDate] = StatusConta.PENDENTE
-
-            val contaFixa = ContaFixaModel(idConta, descricaoConta, valorConta, diaVencimentoConta, pagamentos)
+            val pagamentos: HashMap<String, StatusConta> = hashMapOf()
+            val contaFixa = ContaFixaModel(idConta, descricaoConta, valorConta, diaVencimentoConta, pagamentos, Date())
 
             contaFixaController.save(contaFixa).addOnCompleteListener {
                 ContaSingleton.contasFixas.add(contaFixa)
@@ -100,11 +97,14 @@ class CriarContaActivity : AppCompatActivity() {
         //Create Conta Normal
         }else{
 
-            val vencimento: LocalDate = DateUtil.getDateFromDayInActualMonth(diaVencimentoConta)
+            val vencimento: LocalDate = DateUtil.getLocalDateFromDayInActualMonth(diaVencimentoConta)
 
-            val status: StatusConta = StatusConta.PENDENTE
+            val status: StatusConta =
+                if(vencimento.isBefore(LocalDate.now())) StatusConta.VENCIDA
+                else StatusConta.PENDENTE
 
             val keyDate = DateUtil.getKeyFromDate(UsuarioSingleton.dataSelecionada)
+
             val conta = ContaModel(
                 idConta,
                 descricaoConta,

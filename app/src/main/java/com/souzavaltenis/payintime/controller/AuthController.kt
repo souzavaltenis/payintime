@@ -30,4 +30,8 @@ class AuthController {
         }
         return null
     }
+
+    fun logout(){
+        firebaseAuth.signOut()
+    }
 }

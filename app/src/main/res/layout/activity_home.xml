@@ -8,6 +8,7 @@
     tools:context=".view.HomeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -15,9 +16,9 @@
             android:id="@+id/constraintLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:padding="4dp"
+            android:layout_marginTop="2dp"
             android:clipToPadding="false"
+            android:padding="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/include">
@@ -38,7 +39,7 @@
                 android:id="@+id/ivCalendar"
                 android:layout_width="130dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="2dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/figure_calendar" />
@@ -49,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/roboto"
-                android:text="@string/exemplo_mes"
+                android:text="..."
                 android:textColor="@color/text"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -61,7 +62,7 @@
                 android:layout_width="60dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
-                android:text="@string/exemplo_ano"
+                android:text="..."
                 android:textColor="@color/text"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -80,84 +81,6 @@
                 app:layout_constraintTop_toTopOf="@+id/tvMes" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/tvTitleAPagar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/roboto"
-            android:text="@string/a_pagar"
-            android:textColor="@color/text"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-        <TextView
-            android:id="@+id/tvTitleJaPago"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/roboto"
-            android:text="@string/ja_pago"
-            android:textColor="@color/text"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider1" />
-
-        <TextView
-            android:id="@+id/tvTitleSalRestante"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/roboto"
-            android:text="@string/salario_restante"
-            android:textColor="@color/text"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/divider2" />
-
-        <TextView
-            android:id="@+id/tvValorJaPago"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/roboto"
-            android:text="@string/valor_exemplo"
-            android:textColor="@color/text"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/tvTitleJaPago"
-            app:layout_constraintTop_toTopOf="@+id/tvTitleJaPago" />
-
-        <TextView
-            android:id="@+id/tvValorSalRestante"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/roboto"
-            android:text="@string/valor_exemplo"
-            android:textColor="@color/text"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/tvTitleSalRestante"
-            app:layout_constraintTop_toTopOf="@+id/tvTitleSalRestante" />
-
-        <TextView
-            android:id="@+id/tvValorAPagar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/roboto"
-            android:text="@string/valor_exemplo"
-            android:textColor="@color/text"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/tvTitleAPagar"
-            app:layout_constraintTop_toTopOf="@+id/tvTitleAPagar" />
-
         <include
             android:id="@+id/include"
             layout="@layout/toolbar_main"
@@ -165,35 +88,84 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <View
-            android:id="@+id/divider1"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/divider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitleAPagar" />
-
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/divider"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitleJaPago" />
-
         <include
             android:id="@+id/include4"
             layout="@layout/component_conta"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitleSalRestante" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include4">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:paddingTop="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tabLayout"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:elevation="2dp"
+                    android:background="@color/background"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tabGravity="fill"
+                    app:tabIndicatorColor="@color/primary"
+                    app:tabMode="fixed"
+                    app:tabPaddingStart="0dp"
+                    app:tabRippleColor="@color/primary"
+                    app:tabSelectedTextColor="@color/primary"
+                    app:tabTextAppearance="@style/CustomTabItem"
+                    app:tabTextColor="@color/text">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:id="@+id/tabNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/contas_normais_tab" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/contas_fixas_tab" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/resumo_tab" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -206,6 +178,27 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/drawer_header"
         app:itemTextColor="@color/text"
-        app:menu="@menu/nav_items" />
+        app:menu="@menu/nav_items" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvSair"
+                android:onClick="deslogar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:text="@string/sair"
+                android:gravity="center_vertical"
+                android:drawablePadding="4dp"
+                app:drawableStartCompat="@drawable/ic_outline_logout_30" />
+        </LinearLayout>
+
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
