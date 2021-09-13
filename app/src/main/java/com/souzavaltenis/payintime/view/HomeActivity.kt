@@ -23,6 +23,7 @@ import com.souzavaltenis.payintime.util.interfaces.CallbackFragment
 import com.souzavaltenis.payintime.util.DateUtil
 import com.souzavaltenis.payintime.util.adapaters.TabPageAdapter
 import com.souzavaltenis.payintime.util.interfaces.CallbackMenuConta
+import com.souzavaltenis.payintime.view.fragments.ContaOptionsFragment
 import java.time.LocalDate
 
 class HomeActivity : AppCompatActivity() {
@@ -48,6 +49,11 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+//        val ivCalendar: ImageView = findViewById(R.id.ivCalendar)
+//        ivCalendar.setOnClickListener {
+//
+//        }
 
         homeController = HomeController()
 
@@ -81,8 +87,9 @@ class HomeActivity : AppCompatActivity() {
 
     fun updateContaNormal(): CallbackMenuConta {
         return object : CallbackMenuConta {
-            override fun notifyAction(button: Button, position: Int) {
-                showPopup(button, position)
+            override fun notify(idConta: String) {
+                val contaOptionsFragment = ContaOptionsFragment(idConta)
+                contaOptionsFragment.show(supportFragmentManager, "conta_options_fragment")
             }
         }
     }

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.MaterialComponents.Light.Bridge"
+    android:padding="16dp">
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/tbGroupSubMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:selectionRequired="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNomeContaSubMenu"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btPendenteSubMenu"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:backgroundTint="@color/button_select_pending"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_pending_32" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btPagaSubMenu"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:backgroundTint="@color/button_select_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_checkbox_32" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btVencidaSubMenu"
+            style="@style/Widget.App.Button.OutlinedButton.IconOnly"
+            android:backgroundTint="@color/button_select_warning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:icon="@drawable/ic_warning_32" />
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <TextView
+        android:id="@+id/tvNomeContaSubMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="center"
+        android:text="Conta de Energia"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivSairSubMenu" />
+
+    <TextView
+        android:id="@+id/tvDescSubMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/roboto"
+        android:text="Opções para esta conta"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbGroupSubMenu" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDescSubMenu">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btEditarContaSubMenu"
+            app:iconSize="24dp"
+            android:paddingVertical="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:text="Editar"
+            android:textAllCaps="false"
+            app:backgroundTint="@color/primary"
+            app:icon="@drawable/ic_edit_32"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp"
+            app:iconTint="#fff" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btApagarContaSubMenu"
+            app:iconSize="24dp"
+            android:paddingVertical="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:text="Apagar"
+            android:textAllCaps="false"
+            app:backgroundTint="@color/red"
+            app:icon="@drawable/ic_delete_32"
+            app:iconGravity="textStart"
+            app:iconPadding="10dp"
+            app:iconTint="#fff" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/ivSairSubMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close_32" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

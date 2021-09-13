@@ -13,11 +13,11 @@ import com.souzavaltenis.payintime.util.GeralUtil
 import com.souzavaltenis.payintime.util.interfaces.CallbackMenuConta
 
 class HomeContasAdapterRV(
-    var contasNormais: ArrayList<ContaModel>,
-    val callbackMenuConta: CallbackMenuConta
+        var contasNormais: ArrayList<ContaModel>,
+        private val callbackMenuConta: CallbackMenuConta
     ): RecyclerView.Adapter<HomeContasAdapterRV.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, private val callbackMenuConta: CallbackMenuConta) : RecyclerView.ViewHolder(view) {
 
         private val ivStatusConta: ImageView = view.findViewById(R.id.ivStatusConta)
         private val tvNomeConta: TextView = view.findViewById(R.id.tvNomeConta)
@@ -26,28 +26,22 @@ class HomeContasAdapterRV(
         private val btSubMenuConta: Button = view.findViewById(R.id.btSubMenuConta)
 
         fun bind(contaNormal: ContaModel){
-            ivStatusConta.setImageResource(GeralUtil.getIdResourceFromStatusConta(contaNormal.status!!))
+            ivStatusConta.setImageResource(GeralUtil.getResourceFromStatusConta(contaNormal.status!!))
             tvNomeConta.text = contaNormal.descricao
             tvVencimentoConta.text = GeralUtil.convertDateToStr(contaNormal.vencimento!!, "dd/MM")
             tvValorConta.text = GeralUtil.formatarValor(contaNormal.valor)
+            btSubMenuConta.setOnClickListener{callbackMenuConta.notify(contaNormal.id)}
         }
 
-        fun setOnClickSubMenuConta(callbackMenuConta: CallbackMenuConta, position: Int){
-            btSubMenuConta.setOnClickListener {
-                callbackMenuConta.notifyAction(it as Button, position)
-            }
-        }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.card_conta, viewGroup, false)
-        return ViewHolder(view)
+        return ViewHolder(view, callbackMenuConta)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val contaNormal: ContaModel = contasNormais[position]
-        viewHolder.bind(contaNormal)
-        viewHolder.setOnClickSubMenuConta(callbackMenuConta, position)
+        viewHolder.bind(contasNormais[position])
     }
 
     override fun getItemCount() = contasNormais.size

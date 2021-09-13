@@ -13,8 +13,8 @@ import com.souzavaltenis.payintime.R
 import com.souzavaltenis.payintime.model.ContaModel
 import com.souzavaltenis.payintime.singleton.ContaSingleton
 import com.souzavaltenis.payintime.singleton.UsuarioSingleton
-import com.souzavaltenis.payintime.util.interfaces.CallbackFragment
 import com.souzavaltenis.payintime.util.adapaters.HomeContasAdapterRV
+import com.souzavaltenis.payintime.util.interfaces.CallbackFragment
 import com.souzavaltenis.payintime.util.interfaces.CallbackMenuConta
 import java.util.*
 

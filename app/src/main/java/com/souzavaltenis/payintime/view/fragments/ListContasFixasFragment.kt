@@ -2,7 +2,6 @@ package com.souzavaltenis.payintime.view.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +10,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.souzavaltenis.payintime.R
-import com.souzavaltenis.payintime.model.ContaFixaModel
 import com.souzavaltenis.payintime.singleton.ContaSingleton
 import com.souzavaltenis.payintime.util.adapaters.HomeContasFixaAdapterRV
 import com.souzavaltenis.payintime.util.interfaces.CallbackFragment
-import java.util.*
 
 class ListContasFixasFragment : Fragment(), CallbackFragment {
 

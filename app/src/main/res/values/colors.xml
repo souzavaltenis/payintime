@@ -12,5 +12,10 @@
     <color name="background">#FFFFFF</color>
     <color name="text">#909090</color>
     <color name="divider">#CCCCCC</color>
+    <color name="red">#FF6347</color>
+    <color name="blue">#24A0ED</color>
+    <color name="yellow">#FFD700</color>
+    <color name="green">#32CD32</color>
+
 
 </resources>

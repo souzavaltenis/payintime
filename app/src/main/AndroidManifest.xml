@@ -11,35 +11,27 @@
         android:theme="@style/Theme.PayInTime">
         <activity
             android:name=".view.CriarContaActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="true" />
         <activity
             android:name=".view.ContasFixasActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="true" />
         <activity
             android:name=".view.SalarioActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="true" />
         <activity
             android:name=".view.CadastroActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="true" />
         <activity
             android:name=".view.HomeActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="true" />
         <activity
             android:name=".view.LoginActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="true" />
         <activity
             android:name=".view.SplashActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -47,6 +39,7 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

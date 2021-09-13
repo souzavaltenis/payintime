@@ -9,7 +9,7 @@ import com.souzavaltenis.payintime.view.fragments.ResumoFragment
 import com.souzavaltenis.payintime.util.interfaces.CallbackFragment
 import com.souzavaltenis.payintime.util.interfaces.CallbackMenuConta
 
-class TabPageAdapter(activity: FragmentActivity,
+class TabPageAdapter(private val activity: FragmentActivity,
                      private val tabCount: Int,
                      private val callbacksFragmentsMap: HashMap<Int, CallbackFragment>,
                      private val callbackMenuConta: CallbackMenuConta
@@ -21,6 +21,7 @@ class TabPageAdapter(activity: FragmentActivity,
 
         return when (position){
             0 -> {
+                activity.supportFragmentManager
                 val listContasNormaisFragment = ListContasNormaisFragment(callbackMenuConta)
                 callbacksFragmentsMap[position] = listContasNormaisFragment
                 listContasNormaisFragment

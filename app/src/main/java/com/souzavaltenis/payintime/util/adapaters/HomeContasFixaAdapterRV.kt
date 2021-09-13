@@ -31,7 +31,7 @@ class HomeContasFixaAdapterRV(
 
             val keyDate: String = UsuarioSingleton.keyDate()
             val vencimento: Date = DateUtil.getDateFromDayInMonthSpecific(contaFixa.diaVencimento, UsuarioSingleton.dataSelecionada)
-            val idImageStatus: Int = GeralUtil.getIdResourceFromStatusConta(contaFixa.pagamentos[keyDate] ?: StatusConta.PENDENTE)
+            val idImageStatus: Int = GeralUtil.getResourceFromStatusConta(contaFixa.pagamentos[keyDate] ?: StatusConta.PENDENTE)
 
             ivStatusConta.setImageResource(idImageStatus)
             tvNomeConta.text = contaFixa.descricao

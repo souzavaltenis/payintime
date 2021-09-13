@@ -17,7 +17,7 @@ class GeralUtil {
             return EditTextMask.doubleToStrBRL(valor, false)
         }
 
-        fun getIdResourceFromStatusConta(status: StatusConta): Int{
+        fun getResourceFromStatusConta(status: StatusConta): Int{
             return when (status) {
                 StatusConta.PENDENTE -> {
                     R.drawable.ic_pending_48
@@ -27,6 +27,20 @@ class GeralUtil {
                 }
                 StatusConta.VENCIDA -> {
                     R.drawable.ic_warning_48
+                }
+            }
+        }
+
+        fun getIdButtonFromStatusConta(status: StatusConta): Int{
+            return when (status) {
+                StatusConta.PENDENTE -> {
+                    R.id.btPendenteSubMenu
+                }
+                StatusConta.PAGA -> {
+                    R.id.btPagaSubMenu
+                }
+                StatusConta.VENCIDA -> {
+                    R.id.btVencidaSubMenu
                 }
             }
         }
