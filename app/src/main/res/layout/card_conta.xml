@@ -22,6 +22,15 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <View
+                android:id="@+id/viewColorStatus"
+                android:layout_width="4dp"
+                android:layout_height="0dp"
+                android:background="@color/green"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tvNomeConta"
                 android:layout_width="wrap_content"
@@ -65,10 +74,11 @@
                 android:id="@+id/ivStatusConta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="4dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/viewColorStatus"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.488"
                 app:srcCompat="@drawable/ic_pending_48" />
 
             <Button
@@ -83,6 +93,7 @@
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

@@ -68,6 +68,16 @@ class DateUtil {
             )
         }
 
+        fun convertDateToLocalDate(dateToConvert: Date): LocalDate {
+            return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate()
+        }
+
+        fun getDayOfDate(date: Date): Int {
+            return convertDateToLocalDate(date).dayOfMonth
+        }
+
     }
 
 }

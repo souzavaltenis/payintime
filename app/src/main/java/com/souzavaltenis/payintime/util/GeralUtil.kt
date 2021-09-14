@@ -1,6 +1,14 @@
 package com.souzavaltenis.payintime.util
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
+import android.graphics.Color
+import android.graphics.ColorFilter
+import android.graphics.LightingColorFilter
+import android.view.View
+import android.widget.Button
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import com.souzavaltenis.payintime.R
 import com.souzavaltenis.payintime.model.ContaFixaModel
 import com.souzavaltenis.payintime.model.enums.StatusConta
@@ -18,16 +26,21 @@ class GeralUtil {
         }
 
         fun getResourceFromStatusConta(status: StatusConta): Int{
+
+
+
             return when (status) {
-                StatusConta.PENDENTE -> {
-                    R.drawable.ic_pending_48
-                }
-                StatusConta.PAGA -> {
-                    R.drawable.ic_checkbox_48
-                }
-                StatusConta.VENCIDA -> {
-                    R.drawable.ic_warning_48
-                }
+                StatusConta.PENDENTE -> R.drawable.ic_pending_48
+                StatusConta.PAGA -> R.drawable.ic_checkbox_48
+                StatusConta.VENCIDA -> R.drawable.ic_warning_48
+            }
+        }
+
+        fun getColorFromStatusConta(status: StatusConta): Int{
+            return when (status) {
+                StatusConta.PENDENTE -> R.color.text
+                StatusConta.PAGA -> R.color.green
+                StatusConta.VENCIDA -> R.color.yellow
             }
         }
 
@@ -39,9 +52,7 @@ class GeralUtil {
                 StatusConta.PAGA -> {
                     R.id.btPagaSubMenu
                 }
-                StatusConta.VENCIDA -> {
-                    R.id.btVencidaSubMenu
-                }
+                else -> -1
             }
         }
 

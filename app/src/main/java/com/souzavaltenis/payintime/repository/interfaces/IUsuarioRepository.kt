@@ -7,5 +7,5 @@ import com.souzavaltenis.payintime.model.UsuarioModel
 interface IUsuarioRepository {
     fun save(usuarioModel: UsuarioModel): Task<Void>
     fun findByEmail(email: String): Task<DocumentSnapshot>
-    fun updateFieldSalario(email: String, salario: Double): Task<Void>
+    fun updateField(email: String, field: String, value: Any): Task<Void>
 }

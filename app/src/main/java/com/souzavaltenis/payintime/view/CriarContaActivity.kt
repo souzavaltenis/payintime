@@ -3,7 +3,6 @@ package com.souzavaltenis.payintime.view
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -36,6 +35,7 @@ class CriarContaActivity : AppCompatActivity() {
     private lateinit var etDescConta: EditText
     private lateinit var etValorConta: EditText
     private lateinit var etDiaVencimentoConta: EditText
+    private lateinit var btCadastrarConta: Button
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,11 +43,12 @@ class CriarContaActivity : AppCompatActivity() {
         setContentView(R.layout.activity_criar_conta)
 
         val btBack: Button = findViewById(R.id.btBack)
-        btBack.setOnClickListener{onBackPressed()}
+        btBack.setOnClickListener{ finish() }
 
         isContaFixa = intent.getBooleanExtra("isContaFixa", false)
 
-        val tvTitleCriarConta: TextView = findViewById(R.id.tvTitleCriarConta)
+        val tvTitleCriarConta: TextView = findViewById(R.id.tvTitleEditarConta)
+        btCadastrarConta = findViewById(R.id.btCadastrarConta)
 
         if(!isContaFixa){
             val date: LocalDate = UsuarioSingleton.dataSelecionada
@@ -57,8 +58,6 @@ class CriarContaActivity : AppCompatActivity() {
 
             val tvDescCriarConta: TextView = findViewById(R.id.tvDescCriarConta)
             tvDescCriarConta.text = tvDescCriarConta.text.toString().plus(" fixa")
-
-            val btCadastrarConta: Button = findViewById(R.id.btCadastrarConta)
             btCadastrarConta.text = btCadastrarConta.text.toString().plus(" Fixa")
         }
 
@@ -72,9 +71,11 @@ class CriarContaActivity : AppCompatActivity() {
         etDiaVencimentoConta = findViewById(R.id.etDiaVencimentoConta)
 
         etValorConta.addTextChangedListener(EditTextMask.insertCurrency(etValorConta))
+
+        btCadastrarConta.setOnClickListener { cadastrarConta() }
     }
 
-    fun cadastrarConta(view: View) {
+    fun cadastrarConta() {
 
         //Values of EditTexts
         val idConta: String = UUID.randomUUID().toString()

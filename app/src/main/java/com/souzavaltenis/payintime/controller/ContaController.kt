@@ -16,4 +16,12 @@ class ContaController(emailUsuario: String) {
     fun findAllByKeyDate(keyDate: String): Task<DocumentSnapshot> {
         return contaRepository.findAllByKeyDate(keyDate)
     }
+
+    fun update(keyDate: String, contaModelAntiga: ContaModel, contaModelNova: ContaModel, callback: () -> Any): Task<Void> {
+        return contaRepository.update(keyDate, contaModelAntiga, contaModelNova, callback)
+    }
+
+    fun delete(keyDate: String, contaModel: ContaModel, callback: () -> Any): Task<Void> {
+        return contaRepository.delete(keyDate, contaModel, callback)
+    }
 }

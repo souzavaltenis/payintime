@@ -1,6 +1,7 @@
 package com.souzavaltenis.payintime.repository
 
 import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -42,4 +43,31 @@ class ContaRepository(val emailUsuario: String): IContaRepository {
             .get()
     }
 
+    override fun update(keyDate: String, contaModelAntiga: ContaModel, contaModelNova: ContaModel, callback: () -> Any): Task<Void> {
+
+        val docRef: DocumentReference = firestore
+            .collection("users")
+            .document(emailUsuario)
+            .collection("contas")
+            .document(keyDate)
+
+        return docRef.update("all", FieldValue.arrayRemove(contaModelAntiga)).addOnCompleteListener {
+            docRef.update("all", FieldValue.arrayUnion(contaModelNova)).addOnCompleteListener {
+                callback.invoke()
+            }
+        }
+
+    }
+
+    override fun delete(keyDate: String, contaModel: ContaModel, callback: () -> Any): Task<Void> {
+
+        return firestore
+            .collection("users")
+            .document(emailUsuario)
+            .collection("contas")
+            .document(keyDate)
+            .update("all", FieldValue.arrayRemove(contaModel))
+            .addOnCompleteListener { callback.invoke() }
+
+    }
 }

@@ -18,6 +18,6 @@ class UsuarioController {
     }
 
     fun updateFieldSalario(email: String, salario: Double): Task<Void> {
-        return usuarioRepository.updateFieldSalario(email, salario)
+        return usuarioRepository.updateField(email, "salario", salario)
     }
 }

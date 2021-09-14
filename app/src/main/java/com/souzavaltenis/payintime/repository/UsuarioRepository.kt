@@ -20,8 +20,8 @@ class UsuarioRepository: IUsuarioRepository {
         return firestore.collection("users").document(email).get()
     }
 
-    override fun updateFieldSalario(email: String, salario: Double): Task<Void> {
+    override fun updateField(email: String, field: String, value: Any): Task<Void> {
         return firestore.collection("users").document(email)
-            .update(mapOf("salario" to salario))
+            .update(mapOf(field to value))
     }
 }

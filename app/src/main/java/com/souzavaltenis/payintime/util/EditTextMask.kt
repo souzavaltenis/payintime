@@ -33,7 +33,7 @@ object EditTextMask {
         }
     }
 
-    fun doubleToStrBRL(value: Double, divider: Boolean): String {
+    fun doubleToStrBRL(value: Double, divider: Boolean = false): String {
         return NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
             .format(if (divider) value / 100 else value)
     }

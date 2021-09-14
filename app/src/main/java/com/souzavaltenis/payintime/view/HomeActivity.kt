@@ -6,7 +6,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -19,9 +22,10 @@ import com.souzavaltenis.payintime.model.ContaModel
 import com.souzavaltenis.payintime.model.enums.StatusConta
 import com.souzavaltenis.payintime.singleton.ContaSingleton
 import com.souzavaltenis.payintime.singleton.UsuarioSingleton
-import com.souzavaltenis.payintime.util.interfaces.CallbackFragment
 import com.souzavaltenis.payintime.util.DateUtil
 import com.souzavaltenis.payintime.util.adapaters.TabPageAdapter
+import com.souzavaltenis.payintime.util.interfaces.CallbackChangesConta
+import com.souzavaltenis.payintime.util.interfaces.CallbackFragment
 import com.souzavaltenis.payintime.util.interfaces.CallbackMenuConta
 import com.souzavaltenis.payintime.view.fragments.ContaOptionsFragment
 import java.time.LocalDate
@@ -50,11 +54,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-//        val ivCalendar: ImageView = findViewById(R.id.ivCalendar)
-//        ivCalendar.setOnClickListener {
-//
-//        }
-
         homeController = HomeController()
 
         tvMes = findViewById(R.id.tvMes)
@@ -77,7 +76,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    fun initSetup(){
+    private fun initSetup(){
         initTabBar()
         loadMenu()
         updateContent()
@@ -85,21 +84,35 @@ class HomeActivity : AppCompatActivity() {
         addClickCreateConta()
     }
 
-    fun updateContaNormal(): CallbackMenuConta {
+    private fun callbackMenuConta(): CallbackMenuConta {
         return object : CallbackMenuConta {
             override fun notify(idConta: String) {
-                val contaOptionsFragment = ContaOptionsFragment(idConta)
+                val contaOptionsFragment = ContaOptionsFragment(idConta, notifyChangesContaNormal())
                 contaOptionsFragment.show(supportFragmentManager, "conta_options_fragment")
             }
         }
     }
 
-    fun initTabBar(){
+    fun notifyChangesContaNormal(): CallbackChangesConta {
+        return object : CallbackChangesConta {
+            override fun onUpdate() {
+                Toast.makeText(applicationContext, "Conta Atualizada", Toast.LENGTH_SHORT).show()
+                changeDate()
+            }
+
+            override fun onDelete() {
+                Toast.makeText(applicationContext, "Conta Removida", Toast.LENGTH_SHORT).show()
+                changeDate()
+            }
+        }
+    }
+
+    private fun initTabBar(){
 
         val viewPager: ViewPager2 = findViewById(R.id.viewPager)
         val tabLayout: TabLayout = findViewById(R.id.tabLayout)
 
-        val adapter = TabPageAdapter(this, tabLayout.tabCount, callbacksFragmentsMap, updateContaNormal())
+        val adapter = TabPageAdapter(this, tabLayout.tabCount, callbacksFragmentsMap, callbackMenuConta())
 
         viewPager.adapter = adapter
 
@@ -121,7 +134,7 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    fun addClickCreateConta(){
+    private fun addClickCreateConta(){
         ivAddConta.setOnClickListener{
             startActivityForResult(
                 Intent(this, CriarContaActivity::class.java),
@@ -145,31 +158,7 @@ class HomeActivity : AppCompatActivity() {
         changeDate()
     }
 
-    fun showPopup(view: View, position: Int) {
-        val popup = PopupMenu(this, view)
-        popup.inflate(R.menu.submenu_items)
-
-        popup.setOnMenuItemClickListener { item: MenuItem? ->
-
-            when (item!!.itemId) {
-                R.id.header1 -> {
-                    Toast.makeText(this, "${item.title} posi: $position", Toast.LENGTH_SHORT).show()
-                }
-                R.id.header2 -> {
-                    Toast.makeText(this, "${item.title} posi: $position", Toast.LENGTH_SHORT).show()
-                }
-                R.id.header3 -> {
-                    Toast.makeText(this, "${item.title} posi: $position", Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            true
-        }
-
-        popup.show()
-    }
-
-    fun updateContent() {
+    private fun updateContent() {
 
         val dataSelecionada: LocalDate = UsuarioSingleton.dataSelecionada
 
@@ -190,15 +179,15 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
-    fun enableViews(value: Boolean){
+    private fun enableViews(value: Boolean){
         tabLayout.isEnabled = value
         btMenos.isEnabled = value
         btMais.isEnabled = value
         ivAddConta.isEnabled = value
     }
 
-    fun updateContentFragments(position: Int = -1){
-        Log.d("fragment", "callbacksFragmentsMap KEYS: ${callbacksFragmentsMap.keys}")
+    private fun updateContentFragments(position: Int = -1){
+
         //Notifica um fragmento específico
         if(position != -1){
             callbacksFragmentsMap[position]?.notifyUpdate()
@@ -237,7 +226,7 @@ class HomeActivity : AppCompatActivity() {
         tvInfoContasVencidas.text = quantidadeContasVencidas.toString()
     }
 
-    fun setOnCliksPlusAndMinus() {
+    private fun setOnCliksPlusAndMinus() {
 
         val btMais: Button = findViewById(R.id.btMais)
         val btMenos: Button = findViewById(R.id.btMenos)
@@ -269,7 +258,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    fun optionsMenu(menuItem: MenuItem){
+    private fun optionsMenu(menuItem: MenuItem){
 
         when (menuItem.itemId) {
             R.id.opSalario -> {

@@ -5,24 +5,24 @@
     android:background="@color/background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.CriarContaActivity">
+    tools:context=".view.EditarContaActivity">
 
     <Button
-        android:id="@+id/btCadastrarConta"
+        android:id="@+id/btEditarConta"
         style="@style/ButtonStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="42dp"
-        android:text="@string/cadastrar_uma_conta"
+        android:text="@string/atualizar_conta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDiaVencimentoConta" />
+        app:layout_constraintTop_toBottomOf="@+id/etDiaVencimentoContaEdit" />
 
     <EditText
-        android:id="@+id/etDescConta"
+        android:id="@+id/etDescContaEdit"
         style="@style/EditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ivZoomFinance" />
 
     <EditText
-        android:id="@+id/etValorConta"
+        android:id="@+id/etValorContaEdit"
         style="@style/EditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -55,10 +55,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDescConta" />
+        app:layout_constraintTop_toBottomOf="@+id/etDescContaEdit" />
 
     <EditText
-        android:id="@+id/etDiaVencimentoConta"
+        android:id="@+id/etDiaVencimentoContaEdit"
         style="@style/EditTextStyle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -73,16 +73,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etValorConta" />
+        app:layout_constraintTop_toBottomOf="@+id/etValorContaEdit" />
 
     <TextView
-        android:id="@+id/tvDescCriarConta"
+        android:id="@+id/tvTitleDescEditConta"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/roboto"
-        android:text="@string/description_criar_conta"
+        android:text="@string/desc_edit_conta"
         android:textColor="@color/text"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/ivZoomFinance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toEndOf="@+id/ivZoomFinance"
@@ -116,6 +117,6 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitleEditarConta"
-        app:srcCompat="@drawable/figure_finance_zoom" />
+        app:srcCompat="@drawable/figure_finance_notebook" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

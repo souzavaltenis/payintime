@@ -44,10 +44,7 @@ class HomeController {
 
     fun loadContasNormais(myCallBack: () -> Unit){
 
-
-
         val keyDate: String = UsuarioSingleton.keyDate()
-
 
         contaController.findAllByKeyDate(keyDate).addOnCompleteListener { taskNormais ->
             //Carregando documento com um array de contas

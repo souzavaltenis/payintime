@@ -21,10 +21,14 @@ class ResumoFragment : Fragment(), CallbackFragment {
     private lateinit var tvValorJaPago: TextView
     private lateinit var tvValorSalRestante: TextView
 
+    private var isInit: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        isInit = true
 
         val viewOfLayout: View = inflater.inflate(R.layout.fragment_resumo, container, false)
 
@@ -40,27 +44,29 @@ class ResumoFragment : Fragment(), CallbackFragment {
     override fun notifyUpdate() {
         Log.d("fragment", "ResumoFragment.notifyUpdate")
 
-        val keyDate: String = UsuarioSingleton.keyDate()
+        if(isInit) {
+            val keyDate: String = UsuarioSingleton.keyDate()
 
-        val contasNormais: ArrayList<ContaModel> = ContaSingleton.contasNormais[keyDate]!!
+            val contasNormais: ArrayList<ContaModel> = ContaSingleton.contasNormais[keyDate]!!
 
-        val (contasNormaisPagas, contasNormaisNaoPagas) = contasNormais
-            .partition { it.status == StatusConta.PAGA }
+            val (contasNormaisPagas, contasNormaisNaoPagas) = contasNormais
+                .partition { it.status == StatusConta.PAGA }
 
-        val (contasFixasPagas, contasFixasNaoPagas) = ContaSingleton.contasFixas
-            .partition { it.pagamentos[keyDate] == StatusConta.PAGA }
+            val (contasFixasPagas, contasFixasNaoPagas) = ContaSingleton.contasFixas
+                .partition { it.pagamentos[keyDate] == StatusConta.PAGA }
 
-        val aPagar: Double = contasNormaisNaoPagas.sumOf { it.valor } +
-                contasFixasNaoPagas.sumOf { it.valor }
+            val aPagar: Double = contasNormaisNaoPagas.sumOf { it.valor } +
+                    contasFixasNaoPagas.sumOf { it.valor }
 
-        val jaPago: Double = contasNormaisPagas.sumOf { it.valor } +
-                contasFixasPagas.sumOf { it.valor }
+            val jaPago: Double = contasNormaisPagas.sumOf { it.valor } +
+                    contasFixasPagas.sumOf { it.valor }
 
-        val salarioRestante: Double = UsuarioSingleton.usuario.salario - jaPago
+            val salarioRestante: Double = UsuarioSingleton.usuario.salario - jaPago
 
-        tvValorAPagar.text = GeralUtil.formatarValor(aPagar)
-        tvValorJaPago.text = GeralUtil.formatarValor(jaPago)
-        tvValorSalRestante.text = GeralUtil.formatarValor(salarioRestante)
+            tvValorAPagar.text = GeralUtil.formatarValor(aPagar)
+            tvValorJaPago.text = GeralUtil.formatarValor(jaPago)
+            tvValorSalRestante.text = GeralUtil.formatarValor(salarioRestante)
+        }
 
     }
 }
