@@ -1,7 +1,6 @@
 package com.souzavaltenis.payintime.util.adapaters
 
 import android.graphics.ColorFilter
-import android.graphics.LightingColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.view.LayoutInflater
@@ -12,7 +11,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.souzavaltenis.payintime.R
 import com.souzavaltenis.payintime.R.id
 import com.souzavaltenis.payintime.R.layout
 import com.souzavaltenis.payintime.model.ContaModel

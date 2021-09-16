@@ -12,9 +12,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.souzavaltenis.payintime.R
+import com.souzavaltenis.payintime.controller.ContaFixaController
 import com.souzavaltenis.payintime.singleton.ContaSingleton
-import com.souzavaltenis.payintime.util.adapaters.ContasFixaAdapterRV
+import com.souzavaltenis.payintime.singleton.EditContaSingleton
+import com.souzavaltenis.payintime.singleton.UsuarioSingleton
 import com.souzavaltenis.payintime.util.GeralUtil
+import com.souzavaltenis.payintime.util.adapaters.ContasFixaAdapterRV
+import com.souzavaltenis.payintime.util.interfaces.CallbackOptionsContaFixa
 
 class ContasFixasActivity : AppCompatActivity() {
 
@@ -25,6 +29,7 @@ class ContasFixasActivity : AppCompatActivity() {
     private lateinit var rvContasFixas: RecyclerView
     private lateinit var contasFixasAdapterRV: ContasFixaAdapterRV
     private lateinit var tvInfoContaFixa: TextView
+    private lateinit var contaFixaController: ContaFixaController
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,10 +52,33 @@ class ContasFixasActivity : AppCompatActivity() {
         rvContasFixas.itemAnimator = DefaultItemAnimator()
         rvContasFixas.setHasFixedSize(true)
 
-        contasFixasAdapterRV = ContasFixaAdapterRV(ContaSingleton.contasFixas)
+        contasFixasAdapterRV = ContasFixaAdapterRV(ContaSingleton.contasFixas, callbackOptionsContaFixa())
         rvContasFixas.adapter = contasFixasAdapterRV
 
+        contaFixaController = ContaFixaController(UsuarioSingleton.usuario.email)
+
         atualizarInformacoesContasFixas()
+    }
+
+    private fun callbackOptionsContaFixa(): CallbackOptionsContaFixa {
+        return object : CallbackOptionsContaFixa {
+
+            override fun onClickEdit(position: Int) {
+                EditContaSingleton.contaFixa = ContaSingleton.contasFixas[position]
+                val intent = Intent(applicationContext, EditarContaActivity::class.java)
+                intent.putExtra("isContaFixa", true)
+                startActivityForResult(intent, EditarContaActivity.RESULT_OK_EDIT_CONTA_FIXA)
+            }
+
+            override fun onClickDelete(position: Int) {
+                contaFixaController.delete(ContaSingleton.contasFixas[position].id)
+                    .addOnCompleteListener {
+                        ContaSingleton.contasFixas.removeAt(position)
+                        Toast.makeText(applicationContext, "Conta fixa removida", Toast.LENGTH_SHORT).show()
+                        contasFixasAdapterRV.notifyItemRemoved(position)
+                    }
+            }
+        }
     }
 
     fun criarContaFixa() {
@@ -61,15 +89,27 @@ class ContasFixasActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == CriarContaActivity.RESULT_OK_CONTA_FIXA){
-            val indexAdded: Int = data?.getIntExtra("indexAdded", -1)!!
-            Toast.makeText(this,"Conta Fixa Adicionada com Sucesso!", Toast.LENGTH_SHORT).show()
-            //contasFixasAdapterRV.notifyItemInserted(indexAdded)
-            atualizarInformacoesContasFixas()
+
+        when(resultCode){
+
+            CriarContaActivity.RESULT_OK_CONTA_FIXA -> {
+                Toast.makeText(this,"Conta Fixa Adicionada com Sucesso!", Toast.LENGTH_SHORT).show()
+                atualizarInformacoesContasFixas()
+            }
+
+            EditarContaActivity.RESULT_OK_EDIT_CONTA_FIXA -> {
+                Toast.makeText(this,"Conta Fixa Atualizada com Sucesso!", Toast.LENGTH_SHORT).show()
+                atualizarInformacoesContasFixas()
+            }
+
         }
+
     }
 
-    fun atualizarInformacoesContasFixas() {
+    @SuppressLint("NotifyDataSetChanged")
+    private fun atualizarInformacoesContasFixas() {
+
+        contasFixasAdapterRV.notifyDataSetChanged()
 
         val totalContasFixas: Int = ContaSingleton.contasFixas.size
         val somaValorContasFixas: Double = ContaSingleton.contasFixas.sumOf{c -> c.valor}

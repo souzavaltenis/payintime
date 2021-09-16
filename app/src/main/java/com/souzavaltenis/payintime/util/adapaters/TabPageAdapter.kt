@@ -12,7 +12,8 @@ import com.souzavaltenis.payintime.util.interfaces.CallbackMenuConta
 class TabPageAdapter(private val activity: FragmentActivity,
                      private val tabCount: Int,
                      private val callbacksFragmentsMap: HashMap<Int, CallbackFragment>,
-                     private val callbackMenuConta: CallbackMenuConta
+                     private val callbackMenuConta: CallbackMenuConta,
+                     private val callbackMenuContaFixa: CallbackMenuConta,
     ): FragmentStateAdapter(activity) {
 
     override fun getItemCount(): Int = tabCount
@@ -27,7 +28,7 @@ class TabPageAdapter(private val activity: FragmentActivity,
                 listContasNormaisFragment
             }
             1 -> {
-                val listContasFixasFragment = ListContasFixasFragment()
+                val listContasFixasFragment = ListContasFixasFragment(callbackMenuContaFixa)
                 callbacksFragmentsMap[position] = listContasFixasFragment
                 listContasFixasFragment
             }

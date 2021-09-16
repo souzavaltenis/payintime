@@ -23,10 +23,14 @@ class ListContasNormaisFragment(callbackMenuConta: CallbackMenuConta) : Fragment
     private lateinit var rvTabContasNormais: RecyclerView
     private var homeContasAdapterRV: HomeContasAdapterRV = HomeContasAdapterRV(arrayListOf(), callbackMenuConta)
 
+    private var isInit: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+        isInit = true
 
         val viewOfLayout: View = inflater.inflate(R.layout.fragment_list_contas_normais, container, false)
 
@@ -41,10 +45,12 @@ class ListContasNormaisFragment(callbackMenuConta: CallbackMenuConta) : Fragment
 
     @SuppressLint("NotifyDataSetChanged")
     override fun notifyUpdate() {
-        val keyDate: String = UsuarioSingleton.keyDate()
-        val contasNormais: ArrayList<ContaModel> = ContaSingleton.contasNormais[keyDate]!!
-        homeContasAdapterRV.contasNormais = contasNormais
-        homeContasAdapterRV.notifyDataSetChanged()
+        if(isInit) {
+            val keyDate: String = UsuarioSingleton.keyDate()
+            val contasNormais: ArrayList<ContaModel> = ContaSingleton.contasNormais[keyDate]!!
+            homeContasAdapterRV.contasNormais = contasNormais
+            homeContasAdapterRV.notifyDataSetChanged()
+        }
     }
 
 }

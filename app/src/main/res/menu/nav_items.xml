@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/opSalario"
-
-            android:title="@string/salario" />
-        <item
-            android:id="@+id/opContasFixas"
-            android:title="@string/contas_fixas" />
-
-    </group>
+    <item
+        android:id="@+id/opSalario"
+        android:title="@string/salario" />
+    <item
+        android:id="@+id/opContasFixas"
+        android:title="@string/contas_fixas" />
 
 </menu>

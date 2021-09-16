@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.souzavaltenis.payintime.R
 import com.souzavaltenis.payintime.controller.SalarioController

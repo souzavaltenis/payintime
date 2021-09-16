@@ -1,7 +1,6 @@
 package com.souzavaltenis.payintime.model
 
 import com.souzavaltenis.payintime.model.enums.StatusConta
-import java.time.LocalDate
 import java.util.*
 
 data class ContaModel(

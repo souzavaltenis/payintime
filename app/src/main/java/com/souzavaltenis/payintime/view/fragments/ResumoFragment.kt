@@ -1,7 +1,6 @@
 package com.souzavaltenis.payintime.view.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -42,7 +41,6 @@ class ResumoFragment : Fragment(), CallbackFragment {
     }
 
     override fun notifyUpdate() {
-        Log.d("fragment", "ResumoFragment.notifyUpdate")
 
         if(isInit) {
             val keyDate: String = UsuarioSingleton.keyDate()

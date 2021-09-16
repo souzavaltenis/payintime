@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:theme="@style/Theme.MaterialComponents.Light.Bridge"
@@ -11,32 +10,33 @@
         android:id="@+id/tbGroupSubMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:selectionRequired="true"
+        android:layout_marginTop="24dp"
         android:paddingHorizontal="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.187"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNomeContaSubMenu"
+        app:layout_constraintTop_toBottomOf="@+id/tvValorContaSubMenu"
+        app:selectionRequired="true"
         app:singleSelection="true">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btPendenteSubMenu"
             style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-            android:text="@string/pendente"
-            android:layout_weight="1"
-            android:backgroundTint="@color/button_select_pending"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/button_select_pending"
+            android:text="@string/pendente"
             app:icon="@drawable/ic_pending_32" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btPagaSubMenu"
             style="@style/Widget.App.Button.OutlinedButton.IconOnly"
-            android:text="@string/paga"
-            android:layout_weight="1"
-            android:backgroundTint="@color/button_select_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="@color/button_select_checkbox"
+            android:text="@string/paga"
             app:icon="@drawable/ic_checkbox_32" />
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -54,12 +54,24 @@
         app:layout_constraintTop_toBottomOf="@+id/ivSairSubMenu" />
 
     <TextView
+        android:id="@+id/tvValorContaSubMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:gravity="center"
+        android:text="R$ 34.543,33"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvNomeContaSubMenu" />
+
+    <TextView
         android:id="@+id/tvDescSubMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto"
-        android:text="Opções para esta conta"
+        android:text="@string/opcoes_para_esta_conta"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,7 +98,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:paddingBottom="8dp"
-            android:text="Editar"
+            android:text="@string/editar"
             android:textAllCaps="false"
             app:backgroundTint="@color/primary"
             app:icon="@drawable/ic_edit_32"
@@ -106,7 +118,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:paddingBottom="8dp"
-            android:text="Apagar"
+            android:text="@string/apagar"
             android:textAllCaps="false"
             app:backgroundTint="@color/red"
             app:icon="@drawable/ic_delete_32"

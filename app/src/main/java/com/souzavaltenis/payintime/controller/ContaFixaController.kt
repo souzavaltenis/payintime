@@ -16,4 +16,12 @@ class ContaFixaController(emailUsuario: String) {
     fun findAll(): Task<QuerySnapshot> {
         return contaFixaRepository.findAll()
     }
+
+    fun update(conta: ContaFixaModel): Task<Void> {
+        return contaFixaRepository.update(conta)
+    }
+
+    fun delete(idConta: String): Task<Void> {
+        return contaFixaRepository.delete(idConta)
+    }
 }

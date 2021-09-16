@@ -7,4 +7,6 @@ import com.souzavaltenis.payintime.model.ContaFixaModel
 interface IContaFixaRepository {
     fun save(conta: ContaFixaModel): Task<Void>
     fun findAll(): Task<QuerySnapshot>
+    fun update(conta: ContaFixaModel): Task<Void>
+    fun delete(idConta: String): Task<Void>
 }

@@ -10,6 +10,7 @@ import com.souzavaltenis.payintime.R
 import com.souzavaltenis.payintime.controller.ContaController
 import com.souzavaltenis.payintime.controller.ContaFixaController
 import com.souzavaltenis.payintime.model.enums.StatusConta
+import com.souzavaltenis.payintime.singleton.ContaSingleton
 import com.souzavaltenis.payintime.singleton.EditContaSingleton
 import com.souzavaltenis.payintime.singleton.UsuarioSingleton
 import com.souzavaltenis.payintime.util.DateUtil
@@ -46,20 +47,6 @@ class EditarContaActivity : AppCompatActivity() {
         val tvTitleEditarConta: TextView = findViewById(R.id.tvTitleEditarConta)
         btEditarConta = findViewById(R.id.btEditarConta)
 
-        if(!isContaFixa){
-            val date: LocalDate = UsuarioSingleton.dataSelecionada
-            tvTitleEditarConta.text = "${DateUtil.getNameMonthUpper(date)}  ${date.year}"
-        }else{
-            tvTitleEditarConta.text = "Conta Fixa"
-            val tvTitleDescEditConta: TextView = findViewById(R.id.tvTitleDescEditConta)
-            tvTitleDescEditConta.text = tvTitleDescEditConta.text.toString().plus(" fixa")
-            btEditarConta.text = btEditarConta.text.toString().plus(" Fixa")
-
-            val tvDescCriarConta: TextView = findViewById(R.id.tvDescCriarConta)
-            tvDescCriarConta.text = tvDescCriarConta.text.toString().plus(" fixa")
-            btEditarConta.text = btEditarConta.text.toString().plus(" Fixa")
-        }
-
         val emailUsuario: String = UsuarioSingleton.usuario.email
 
         contaController = ContaController(emailUsuario)
@@ -70,15 +57,32 @@ class EditarContaActivity : AppCompatActivity() {
         etDiaVencimentoContaEdit = findViewById(R.id.etDiaVencimentoContaEdit)
         etValorContaEdit.addTextChangedListener(EditTextMask.insertCurrency(etValorContaEdit))
 
-        setDataInputs()
-
         btEditarConta.setOnClickListener { atualizarConta() }
+
+        if(!isContaFixa){
+            val date: LocalDate = UsuarioSingleton.dataSelecionada
+            tvTitleEditarConta.text = "${DateUtil.getNameMonthUpper(date)}  ${date.year}"
+            setDataInputsContaNormal()
+        }else{
+            tvTitleEditarConta.text = "Conta Fixa"
+            val tvTitleDescEditConta: TextView = findViewById(R.id.tvTitleDescEditConta)
+            tvTitleDescEditConta.text = tvTitleDescEditConta.text.toString().plus(" fixa")
+            btEditarConta.text = btEditarConta.text.toString().plus(" Fixa")
+            setDataInputsContaFixa()
+        }
+
     }
 
-    fun setDataInputs(){
+    fun setDataInputsContaNormal(){
         etDescContaEdit.setText(EditContaSingleton.contaNormal.descricao)
         etValorContaEdit.setText(EditTextMask.doubleToStrBRL(EditContaSingleton.contaNormal.valor))
         etDiaVencimentoContaEdit.setText(DateUtil.getDayOfDate(EditContaSingleton.contaNormal.vencimento!!).toString())
+    }
+
+    fun setDataInputsContaFixa(){
+        etDescContaEdit.setText(EditContaSingleton.contaFixa.descricao)
+        etValorContaEdit.setText(EditTextMask.doubleToStrBRL(EditContaSingleton.contaFixa.valor))
+        etDiaVencimentoContaEdit.setText(EditContaSingleton.contaFixa.diaVencimento.toString())
     }
 
     fun atualizarConta() {
@@ -96,7 +100,11 @@ class EditarContaActivity : AppCompatActivity() {
             EditContaSingleton.contaFixa.diaVencimento = diaVencimentoConta
             GeralUtil.updateStatusContaFixa(EditContaSingleton.contaFixa, UsuarioSingleton.keyDate())
 
-            setResultAndFinish(RESULT_OK_EDIT_CONTA_FIXA)
+            contaFixaController.update(EditContaSingleton.contaFixa).addOnCompleteListener {
+                val positionInList: Int = ContaSingleton.contasFixas.indexOfFirst { it.id == EditContaSingleton.contaFixa.id }
+                ContaSingleton.contasFixas[positionInList] = EditContaSingleton.contaFixa
+                setResultAndFinish(RESULT_OK_EDIT_CONTA_FIXA)
+            }
 
         //Update Conta Normal
         }else{

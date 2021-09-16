@@ -12,7 +12,7 @@
     <string name="cadastrar">Cadastrar</string>
     <string name="exemplo_mes">Novembro</string>
     <string name="exemplo_ano">2021</string>
-    <string name="valor_exemplo">R$ 1234,56</string>
+    <string name="valor_exemplo">R$ 123.456,78</string>
     <string name="salario_restante">Salário restante:</string>
     <string name="ja_pago">Já pago:</string>
     <string name="a_pagar">A pagar:</string>
@@ -46,6 +46,9 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="desc_edit_conta">Atualização de uma conta existente</string>
+    <string name="desc_edit_conta">Atualização de uma conta</string>
     <string name="atualizar_conta">Atualizar Conta</string>
+    <string name="opcoes_para_esta_conta">Opções para esta conta</string>
+    <string name="editar">Editar</string>
+    <string name="apagar">Apagar</string>
 </resources>

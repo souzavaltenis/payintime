@@ -35,6 +35,8 @@ class ContaOptionsFragment(
     private var actionConta: ActionConta = ActionConta.NENHUMA
 
     private lateinit var tbGroupSubMenu: MaterialButtonToggleGroup
+    private lateinit var tvNomeContaSubMenu: TextView
+    private lateinit var tvValorContaSubMenu: TextView
 
     @SuppressLint("InflateParams")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -128,16 +130,22 @@ class ContaOptionsFragment(
         ContaSingleton.contasNormais[keyDate]?.removeAt(index)
     }
 
+    private fun setData(){
+        tvNomeContaSubMenu.text = contaModelNova.descricao
+        tvValorContaSubMenu.text = GeralUtil.formatarValor(contaModelNova.valor)
+        tbGroupSubMenu.check(GeralUtil.getIdButtonFromStatusConta(contaModelNova.status!!))
+    }
+
     private fun configDataView(view: View){
 
         val ivSairSubMenu: ImageView = view.findViewById(R.id.ivSairSubMenu)
         ivSairSubMenu.setOnClickListener { dismiss() }
 
-        val tvNomeContaSubMenu: TextView = view.findViewById(R.id.tvNomeContaSubMenu)
-        tvNomeContaSubMenu.text = contaModelAntiga.descricao
-
+        tvNomeContaSubMenu = view.findViewById(R.id.tvNomeContaSubMenu)
+        tvValorContaSubMenu = view.findViewById(R.id.tvValorContaSubMenu)
         tbGroupSubMenu = view.findViewById(R.id.tbGroupSubMenu)
-        tbGroupSubMenu.check(GeralUtil.getIdButtonFromStatusConta(contaModelAntiga.status!!))
+
+        setData()
 
         tbGroupSubMenu.addOnButtonCheckedListener{ _, checkedId, isChecked ->
             if (isChecked) {
@@ -156,7 +164,6 @@ class ContaOptionsFragment(
 
         val btApagarContaSubMenu: Button = view.findViewById(R.id.btApagarContaSubMenu)
         btApagarContaSubMenu.setOnClickListener {
-            //Algum popup para confirmação
             actionConta = ActionConta.APAGADA
             dismiss()
         }
@@ -167,7 +174,8 @@ class ContaOptionsFragment(
 
         if(resultCode == EditarContaActivity.RESULT_OK_EDIT_CONTA_NORMAL){
             statusConta = EditContaSingleton.contaNormal.status!!
-            tbGroupSubMenu.check(GeralUtil.getIdButtonFromStatusConta(statusConta))
+            contaModelNova.status = statusConta
+            setData()
         }
     }
 

@@ -1,6 +1,5 @@
 package com.souzavaltenis.payintime.controller
 
-import android.util.Log
 import com.google.firebase.firestore.DocumentSnapshot
 import com.souzavaltenis.payintime.model.ContaFixaModel
 import com.souzavaltenis.payintime.model.ContaModel
@@ -53,12 +52,9 @@ class HomeController {
             val contasNormais: ArrayList<ContaModel> = contasDto?.all ?: arrayListOf()
             //Ordenando
             contasNormais.sortBy { it.dataCriacao }
-            Log.d("IFGOIANO", " contasNormais1 Keys: ${ContaSingleton.contasNormais.keys}")
 
             //Setando a lista na key para o mês/ano correspondente
             ContaSingleton.contasNormais[keyDate] = contasNormais
-
-            Log.d("IFGOIANO", " contasNormais2 Keys: ${ContaSingleton.contasNormais.keys}")
 
             //Avisando que o processo foi concluído
             myCallBack.invoke()

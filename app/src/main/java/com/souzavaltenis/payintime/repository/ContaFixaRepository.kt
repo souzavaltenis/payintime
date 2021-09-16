@@ -27,4 +27,20 @@ class ContaFixaRepository(val emailUsuario: String): IContaFixaRepository {
             .get()
     }
 
+    override fun update(conta: ContaFixaModel): Task<Void> {
+        return firestore.collection("users")
+            .document(emailUsuario)
+            .collection("contas_fixas")
+            .document(conta.id)
+            .set(conta)
+    }
+
+    override fun delete(idConta: String): Task<Void> {
+        return firestore.collection("users")
+            .document(emailUsuario)
+            .collection("contas_fixas")
+            .document(idConta)
+            .delete()
+    }
+
 }

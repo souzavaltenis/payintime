@@ -15,13 +15,15 @@ import com.souzavaltenis.payintime.model.enums.StatusConta
 import com.souzavaltenis.payintime.singleton.UsuarioSingleton
 import com.souzavaltenis.payintime.util.DateUtil
 import com.souzavaltenis.payintime.util.GeralUtil
+import com.souzavaltenis.payintime.util.interfaces.CallbackMenuConta
 import java.util.*
 
 class HomeContasFixaAdapterRV(
-        var contasFixas: ArrayList<ContaFixaModel>
+        var contasFixas: ArrayList<ContaFixaModel>,
+        private val callbackMenuContaFixa: CallbackMenuConta
     ): RecyclerView.Adapter<HomeContasFixaAdapterRV.ViewHolder>() {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View, private val callbackMenuContaFixa: CallbackMenuConta) : RecyclerView.ViewHolder(view) {
 
         private val ivStatusConta: ImageView = view.findViewById(R.id.ivStatusConta)
         private val tvNomeConta: TextView = view.findViewById(R.id.tvNomeConta)
@@ -43,9 +45,7 @@ class HomeContasFixaAdapterRV(
             tvNomeConta.text = contaFixa.descricao
             tvVencimentoConta.text = GeralUtil.convertDateToStr(vencimento, "dd/MM")
             tvValorConta.text = GeralUtil.formatarValor(contaFixa.valor)
-            btSubMenuConta.setOnClickListener {
-                //Logica
-            }
+            btSubMenuConta.setOnClickListener{callbackMenuContaFixa.notify(contaFixa.id)}
         }
 
         private fun setColorStatusAndIcon(idColor: Int, idIcon: Int){
@@ -61,7 +61,7 @@ class HomeContasFixaAdapterRV(
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.card_conta, viewGroup, false)
-        return ViewHolder(view)
+        return ViewHolder(view, callbackMenuContaFixa)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {

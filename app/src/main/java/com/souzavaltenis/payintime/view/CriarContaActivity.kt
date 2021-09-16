@@ -1,7 +1,6 @@
 package com.souzavaltenis.payintime.view
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -19,7 +18,6 @@ import com.souzavaltenis.payintime.util.DateUtil
 import com.souzavaltenis.payintime.util.EditTextMask
 import java.time.LocalDate
 import java.util.*
-import kotlin.collections.HashMap
 
 class CriarContaActivity : AppCompatActivity() {
 
@@ -91,20 +89,21 @@ class CriarContaActivity : AppCompatActivity() {
 
             contaFixaController.save(contaFixa).addOnCompleteListener {
                 ContaSingleton.contasFixas.add(contaFixa)
-                val indexAdded: Int = ContaSingleton.contasFixas.indexOf(contaFixa)
-                setResultAndFinish(RESULT_OK_CONTA_FIXA, indexAdded)
+                setResultAndFinish(RESULT_OK_CONTA_FIXA)
             }
 
         //Create Conta Normal
         }else{
 
-            val vencimento: LocalDate = DateUtil.getLocalDateFromDayInActualMonth(diaVencimentoConta)
+
+            val vencimento: LocalDate = DateUtil.getLocalDateFromDayInMonthSpecific(
+                diaVencimentoConta,
+                UsuarioSingleton.dataSelecionada
+            )
 
             val status: StatusConta =
                 if(vencimento.isBefore(LocalDate.now())) StatusConta.VENCIDA
                 else StatusConta.PENDENTE
-
-            val keyDate = DateUtil.getKeyFromDate(UsuarioSingleton.dataSelecionada)
 
             val conta = ContaModel(
                 idConta,
@@ -114,6 +113,8 @@ class CriarContaActivity : AppCompatActivity() {
                 status,
                 Date()
             )
+
+            val keyDate = DateUtil.getKeyFromDate(UsuarioSingleton.dataSelecionada)
 
             contaController.save(keyDate, conta) {
 
@@ -125,18 +126,15 @@ class CriarContaActivity : AppCompatActivity() {
                     contasNormais[keyDate]?.add(conta)
                 }
 
-                val indexAdded: Int = contasNormais[keyDate]?.indexOf(conta)!!
-                setResultAndFinish(RESULT_OK_CONTA_NORMAL, indexAdded)
+                setResultAndFinish(RESULT_OK_CONTA_NORMAL)
 
             }
         }
 
     }
 
-    fun setResultAndFinish(resultCode: Int, indexAdded: Int){
-        val intent = Intent()
-        intent.putExtra("indexAdded", indexAdded)
-        setResult(resultCode, intent)
+    fun setResultAndFinish(resultCode: Int){
+        setResult(resultCode)
         finish()
     }
 

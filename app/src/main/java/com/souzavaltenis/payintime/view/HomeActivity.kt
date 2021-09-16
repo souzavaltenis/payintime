@@ -3,7 +3,6 @@ package com.souzavaltenis.payintime.view
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -25,8 +24,10 @@ import com.souzavaltenis.payintime.singleton.UsuarioSingleton
 import com.souzavaltenis.payintime.util.DateUtil
 import com.souzavaltenis.payintime.util.adapaters.TabPageAdapter
 import com.souzavaltenis.payintime.util.interfaces.CallbackChangesConta
+import com.souzavaltenis.payintime.util.interfaces.CallbackChangesContaFixa
 import com.souzavaltenis.payintime.util.interfaces.CallbackFragment
 import com.souzavaltenis.payintime.util.interfaces.CallbackMenuConta
+import com.souzavaltenis.payintime.view.fragments.ContaFixaOptionsFragment
 import com.souzavaltenis.payintime.view.fragments.ContaOptionsFragment
 import java.time.LocalDate
 
@@ -46,7 +47,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var ivAddConta: ImageView
     private lateinit var tabLayout: TabLayout
 
-    //Remover daqui
     private var callbacksFragmentsMap: HashMap<Int, CallbackFragment> = hashMapOf()
 
     @SuppressLint("SetTextI18n")
@@ -107,12 +107,37 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    private fun callbackMenuContaFixa(): CallbackMenuConta {
+        return object : CallbackMenuConta {
+            override fun notify(idConta: String) {
+                val contaOptionsFragment = ContaFixaOptionsFragment(idConta, notifyChangesContaFixa())
+                contaOptionsFragment.show(supportFragmentManager, "conta_fixa_options_fragment")
+            }
+        }
+    }
+
+    fun notifyChangesContaFixa(): CallbackChangesContaFixa {
+        return object : CallbackChangesContaFixa {
+            override fun onStatusUpdate() {
+                Toast.makeText(applicationContext, "Conta Fixa Atualizada", Toast.LENGTH_SHORT).show()
+                changeDate(updatedOnlyContaFixa = true)
+            }
+        }
+    }
+
+
     private fun initTabBar(){
 
         val viewPager: ViewPager2 = findViewById(R.id.viewPager)
         val tabLayout: TabLayout = findViewById(R.id.tabLayout)
 
-        val adapter = TabPageAdapter(this, tabLayout.tabCount, callbacksFragmentsMap, callbackMenuConta())
+        val adapter = TabPageAdapter(
+            this,
+            tabLayout.tabCount,
+            callbacksFragmentsMap,
+            callbackMenuConta(),
+            callbackMenuContaFixa()
+        )
 
         viewPager.adapter = adapter
 
@@ -196,11 +221,14 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    fun changeDate() {
+    fun changeDate(updatedOnlyContaFixa: Boolean = false) {
 
         val keyDate: String = UsuarioSingleton.keyDate()
 
-        homeController.setStatusContasFixas()
+        if(!updatedOnlyContaFixa) {
+            homeController.setStatusContasFixas()
+        }
+
         updateContentFragments()
 
         val contasNormais: ArrayList<ContaModel> = ContaSingleton.contasNormais[keyDate]!!

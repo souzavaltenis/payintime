@@ -3,8 +3,6 @@ package com.souzavaltenis.payintime.util
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.souzavaltenis.payintime.singleton.ContaSingleton
-import com.souzavaltenis.payintime.singleton.UsuarioSingleton
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.TextStyle

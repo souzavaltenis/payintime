@@ -53,7 +53,8 @@ class CadastroActivity : AppCompatActivity() {
 
                 usuarioController.save(usuario).addOnCompleteListener {
                     Toast.makeText(this, "Cadastro realizado com sucesso!", Toast.LENGTH_SHORT).show()
-                    onBackPressed()
+                    authController.logout()
+                    finish()
                 }
 
             }else{
