@@ -1,6 +1,10 @@
 package com.souzavaltenis.payintime.util
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Context
+import android.text.SpannableStringBuilder
+import androidx.core.text.bold
 import com.souzavaltenis.payintime.R
 import com.souzavaltenis.payintime.model.ContaFixaModel
 import com.souzavaltenis.payintime.model.enums.StatusConta
@@ -66,6 +70,31 @@ class GeralUtil {
             }
 
             return contaFixa
+        }
+
+        fun showDialogConfirmDelete(context: Context, nomeConta: String, isFixa: Boolean = false,
+                                    callbackYes: () -> Unit){
+
+            val messageDialog = SpannableStringBuilder()
+                .append("Você deseja")
+                .bold { append(" APAGAR ") }
+                .append("a conta" + (if(isFixa) " fixa" else "") + " (")
+                .bold { append(nomeConta) }
+                .append(") ?")
+
+            val builder = AlertDialog.Builder(context, android.R.style.Theme_DeviceDefault_Dialog_NoActionBar)
+            builder.setTitle("Excluir Conta" + if(isFixa) " Fixa" else "")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setMessage(messageDialog)
+                .setCancelable(false)
+                .setPositiveButton("Sim") { dialog, id ->
+                    callbackYes.invoke()
+                }
+                .setNegativeButton("Não") { dialog, id ->
+                    dialog.dismiss()
+                }
+            val alert = builder.create()
+            alert.show()
         }
 
     }

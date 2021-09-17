@@ -98,7 +98,6 @@ class ContaOptionsFragment(
                         updateContaInList()
                         callbackChangesConta.onUpdate()
                     }
-
                 }
 
                 ActionConta.APAGADA -> {
@@ -164,8 +163,10 @@ class ContaOptionsFragment(
 
         val btApagarContaSubMenu: Button = view.findViewById(R.id.btApagarContaSubMenu)
         btApagarContaSubMenu.setOnClickListener {
-            actionConta = ActionConta.APAGADA
-            dismiss()
+            GeralUtil.showDialogConfirmDelete(btApagarContaSubMenu.context, contaModelNova.descricao){
+                actionConta = ActionConta.APAGADA
+                dismiss()
+            }
         }
     }
 

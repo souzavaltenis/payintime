@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.souzavaltenis.payintime.R
 import com.souzavaltenis.payintime.controller.ContaFixaController
+import com.souzavaltenis.payintime.model.ContaFixaModel
 import com.souzavaltenis.payintime.singleton.ContaSingleton
 import com.souzavaltenis.payintime.singleton.EditContaSingleton
 import com.souzavaltenis.payintime.singleton.UsuarioSingleton
 import com.souzavaltenis.payintime.util.GeralUtil
 import com.souzavaltenis.payintime.util.adapaters.ContasFixaAdapterRV
+import com.souzavaltenis.payintime.util.enums.ActionConta
 import com.souzavaltenis.payintime.util.interfaces.CallbackOptionsContaFixa
 
 class ContasFixasActivity : AppCompatActivity() {
@@ -71,12 +73,17 @@ class ContasFixasActivity : AppCompatActivity() {
             }
 
             override fun onClickDelete(position: Int) {
-                contaFixaController.delete(ContaSingleton.contasFixas[position].id)
-                    .addOnCompleteListener {
-                        ContaSingleton.contasFixas.removeAt(position)
-                        Toast.makeText(applicationContext, "Conta fixa removida", Toast.LENGTH_SHORT).show()
-                        contasFixasAdapterRV.notifyItemRemoved(position)
-                    }
+                val contaFixa: ContaFixaModel = ContaSingleton.contasFixas[position]
+
+                GeralUtil.showDialogConfirmDelete(this@ContasFixasActivity, contaFixa.descricao, true){
+                    contaFixaController.delete(contaFixa.id)
+                        .addOnCompleteListener {
+                            ContaSingleton.contasFixas.removeAt(position)
+                            Toast.makeText(applicationContext, "Conta fixa removida", Toast.LENGTH_SHORT).show()
+                            contasFixasAdapterRV.notifyItemRemoved(position)
+                        }
+                }
+
             }
         }
     }
