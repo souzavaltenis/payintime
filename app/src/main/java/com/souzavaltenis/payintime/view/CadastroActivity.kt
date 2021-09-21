@@ -12,6 +12,7 @@ import com.souzavaltenis.payintime.controller.AuthController
 import com.souzavaltenis.payintime.controller.UsuarioController
 import com.souzavaltenis.payintime.model.UsuarioModel
 import com.souzavaltenis.payintime.util.EditTextMask
+import com.souzavaltenis.payintime.util.GeralUtil
 import java.util.*
 
 class CadastroActivity : AppCompatActivity() {
@@ -41,9 +42,26 @@ class CadastroActivity : AppCompatActivity() {
     fun cadastrar(view: View){
 
         val name: String = etNomeSignup.text.toString()
+        if(name.isEmpty()){
+            return GeralUtil.setErrorEditText(etNomeSignup, "Informe um nome.")
+        }
+
         val email: String = etEmailSingup.text.toString()
+        if(!GeralUtil.isValidEmail(email)){
+            return GeralUtil.setErrorEditText(etEmailSingup, "Informe um email válido.")
+        }
+
         val password: String = etSenhaSignup.text.toString()
-        val salario: Double = EditTextMask.unMaskBRL(etSalarioSignup.text.toString()).toDouble()
+        if(password.isEmpty() || password.length < 6){
+            return GeralUtil.setErrorEditText(etSenhaSignup, "Informe uma senha com 6 ou mais dígitos.")
+        }
+
+        val textSalario: String = etSalarioSignup.text.toString()
+        if(textSalario.isEmpty()){
+            return GeralUtil.setErrorEditText(etSalarioSignup, "Informe um salário.")
+        }
+
+        val salario: Double = EditTextMask.unMaskBRL(textSalario).toDouble()
 
         authController.signup(email, password).addOnCompleteListener { task: Task<AuthResult> ->
 

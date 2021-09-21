@@ -4,13 +4,21 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.text.SpannableStringBuilder
+import android.text.TextUtils
+import android.util.Log
+import android.util.Patterns
+import android.widget.EditText
 import androidx.core.text.bold
 import com.souzavaltenis.payintime.R
 import com.souzavaltenis.payintime.model.ContaFixaModel
 import com.souzavaltenis.payintime.model.enums.StatusConta
 import com.souzavaltenis.payintime.singleton.UsuarioSingleton
 import java.text.SimpleDateFormat
+import java.time.DateTimeException
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
+import java.time.format.ResolverStyle
 import java.util.*
 
 class GeralUtil {
@@ -95,6 +103,25 @@ class GeralUtil {
                 }
             val alert = builder.create()
             alert.show()
+        }
+
+        fun setErrorEditText(editText: EditText, message: String){
+            editText.error = message
+            editText.requestFocus()
+        }
+
+        fun isValidEmail(email: String): Boolean {
+            return !TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        }
+
+        fun isDiaValidoMes(dia: Int?, date: LocalDate): Boolean {
+            if(dia == null) return false
+            return try {
+                LocalDate.of(date.year, date.month, dia)
+                true
+            } catch (e: DateTimeException) {
+                false
+            }
         }
 
     }

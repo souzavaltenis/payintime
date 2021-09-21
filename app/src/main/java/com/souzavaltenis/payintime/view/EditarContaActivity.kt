@@ -89,15 +89,31 @@ class EditarContaActivity : AppCompatActivity() {
 
         //Values of EditTexts
         val descricaoConta: String = etDescContaEdit.text.toString()
-        val valorConta: Double = EditTextMask.unMaskBRL(etValorContaEdit.text.toString()).toDouble()
-        val diaVencimentoConta: Int = etDiaVencimentoContaEdit.text.toString().toInt()
+        if(descricaoConta.isEmpty()){
+            return GeralUtil.setErrorEditText(etDescContaEdit, "Informe uma descrição.")
+        }
+
+        val textValorContaEdit: String = etValorContaEdit.text.toString()
+        if(textValorContaEdit.isEmpty()){
+            return GeralUtil.setErrorEditText(etValorContaEdit, "Informe um valor para a conta.")
+        }
+
+        val valorConta: Double = EditTextMask.unMaskBRL(textValorContaEdit).toDouble()
+
+        val diaVencimentoConta: Int? = etDiaVencimentoContaEdit.text.toString().toIntOrNull()
+
+        val date: LocalDate = UsuarioSingleton.dataSelecionada
+        if(!GeralUtil.isDiaValidoMes(diaVencimentoConta, date)){
+            return GeralUtil.setErrorEditText(etDiaVencimentoContaEdit,
+                "Informe um dia de vencimento válido para o mês de ${DateUtil.extractMonthName(date)}.")
+        }
 
         //Update Conta Fixa
         if(isContaFixa){
 
             EditContaSingleton.contaFixa.descricao = descricaoConta
             EditContaSingleton.contaFixa.valor = valorConta
-            EditContaSingleton.contaFixa.diaVencimento = diaVencimentoConta
+            EditContaSingleton.contaFixa.diaVencimento = diaVencimentoConta!!
             GeralUtil.updateStatusContaFixa(EditContaSingleton.contaFixa, UsuarioSingleton.keyDate())
 
             contaFixaController.update(EditContaSingleton.contaFixa).addOnCompleteListener {
@@ -109,7 +125,7 @@ class EditarContaActivity : AppCompatActivity() {
         //Update Conta Normal
         }else{
 
-            val vencimento: LocalDate = DateUtil.getLocalDateFromDayInActualMonth(diaVencimentoConta)
+            val vencimento: LocalDate = DateUtil.getLocalDateFromDayInActualMonth(diaVencimentoConta!!)
 
             val status: StatusConta =
                 if(vencimento.isBefore(LocalDate.now())) StatusConta.VENCIDA

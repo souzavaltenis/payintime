@@ -16,6 +16,7 @@ import com.souzavaltenis.payintime.singleton.ContaSingleton
 import com.souzavaltenis.payintime.singleton.UsuarioSingleton
 import com.souzavaltenis.payintime.util.DateUtil
 import com.souzavaltenis.payintime.util.EditTextMask
+import com.souzavaltenis.payintime.util.GeralUtil
 import java.time.LocalDate
 import java.util.*
 
@@ -73,19 +74,36 @@ class CriarContaActivity : AppCompatActivity() {
         btCadastrarConta.setOnClickListener { cadastrarConta() }
     }
 
-    fun cadastrarConta() {
+    private fun cadastrarConta() {
 
         //Values of EditTexts
         val idConta: String = UUID.randomUUID().toString()
+
         val descricaoConta: String = etDescConta.text.toString()
-        val valorConta: Double = EditTextMask.unMaskBRL(etValorConta.text.toString()).toDouble()
-        val diaVencimentoConta: Int = etDiaVencimentoConta.text.toString().toInt()
+        if(descricaoConta.isEmpty()){
+            return GeralUtil.setErrorEditText(etDescConta, "Informe uma descrição.")
+        }
+
+        val textValorConta: String = etValorConta.text.toString()
+        if(textValorConta.isEmpty()){
+            return GeralUtil.setErrorEditText(etValorConta, "Informe um valor para a conta.")
+        }
+
+        val valorConta: Double = EditTextMask.unMaskBRL(textValorConta).toDouble()
+
+        val diaVencimentoConta: Int? = etDiaVencimentoConta.text.toString().toIntOrNull()
+
+        val date: LocalDate = UsuarioSingleton.dataSelecionada
+        if(!GeralUtil.isDiaValidoMes(diaVencimentoConta, date)){
+            return GeralUtil.setErrorEditText(etDiaVencimentoConta,
+                "Informe um dia de vencimento válido para o mês de ${DateUtil.extractMonthName(date)}.")
+        }
 
         //Create Conta Fixa
         if(isContaFixa){
 
             val pagamentos: HashMap<String, StatusConta> = hashMapOf()
-            val contaFixa = ContaFixaModel(idConta, descricaoConta, valorConta, diaVencimentoConta, pagamentos, Date())
+            val contaFixa = ContaFixaModel(idConta, descricaoConta, valorConta, diaVencimentoConta!!, pagamentos, Date())
 
             contaFixaController.save(contaFixa).addOnCompleteListener {
                 ContaSingleton.contasFixas.add(contaFixa)
@@ -95,9 +113,8 @@ class CriarContaActivity : AppCompatActivity() {
         //Create Conta Normal
         }else{
 
-
             val vencimento: LocalDate = DateUtil.getLocalDateFromDayInMonthSpecific(
-                diaVencimentoConta,
+                diaVencimentoConta!!,
                 UsuarioSingleton.dataSelecionada
             )
 
@@ -133,7 +150,7 @@ class CriarContaActivity : AppCompatActivity() {
 
     }
 
-    fun setResultAndFinish(resultCode: Int){
+    private fun setResultAndFinish(resultCode: Int){
         setResult(resultCode)
         finish()
     }

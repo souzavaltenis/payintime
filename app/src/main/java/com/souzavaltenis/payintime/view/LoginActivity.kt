@@ -1,15 +1,16 @@
 package com.souzavaltenis.payintime.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.souzavaltenis.payintime.R
 import com.souzavaltenis.payintime.controller.AuthController
+import com.souzavaltenis.payintime.util.GeralUtil
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,11 +25,18 @@ class LoginActivity : AppCompatActivity() {
 
     fun login(view: View) {
 
-        val etEmail: TextView = findViewById(R.id.etEmail)
-        val etSenha: TextView = findViewById(R.id.etSenha)
+        val etEmail: EditText = findViewById(R.id.etEmail)
+        val etSenha: EditText = findViewById(R.id.etSenha)
 
         val email: String = etEmail.text.toString()
+        if(!GeralUtil.isValidEmail(email)){
+            return GeralUtil.setErrorEditText(etEmail, "Informe um email válido.")
+        }
+
         val password: String = etSenha.text.toString()
+        if(password.isEmpty() || password.length < 6){
+            return GeralUtil.setErrorEditText(etSenha, "Informe uma senha com 6 ou mais dígitos.")
+        }
 
         authController.signin(email, password).addOnCompleteListener { task: Task<AuthResult> ->
 
